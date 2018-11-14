@@ -6,7 +6,7 @@
 #    By: fwerner <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/06 14:25:16 by fwerner           #+#    #+#              #
-#    Updated: 2018/11/13 14:30:24 by fwerner          ###   ########.fr        #
+#    Updated: 2018/11/14 17:28:34 by fwerner          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +15,20 @@ CFLAGS = -Wall -Wextra --std=c++14
 SRCS = $(wildcard *.cpp)
 TPPS = $(wildcard *.tpp)
 INCLUDES = $(wildcard *.hpp)
+OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-$(NAME): $(SRCS) $(TPPS) $(INCLUDES)
-	g++ $(CFLAGS) $(SRCS) -L. -lft -o $(NAME)
+$(NAME): $(OBJS)
+	g++ $(CFLAGS) $(OBJS) -L. -lft -o $(NAME)
+
+%.o: %.cpp $(INCLUDES) $(TPPS)
+	g++ $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(NAME)
+	rm -f $(OBJS)
 
 fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
