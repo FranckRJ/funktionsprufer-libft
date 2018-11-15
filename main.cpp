@@ -32,6 +32,8 @@
 #include "isprintTest.hpp"
 #include "tolowerTest.hpp"
 #include "toupperTest.hpp"
+#include "memallocTest.hpp"
+#include "strnewTest.hpp"
 #include "putcharTest.hpp"
 #include "putstrTest.hpp"
 #include "putendlTest.hpp"
@@ -85,6 +87,8 @@ int main(int argc, char **argv)
 	testList.emplace("ft_isprint", std::bind(isprintTest::launchTest));
 	testList.emplace("ft_tolower", std::bind(tolowerTest::launchTest));
 	testList.emplace("ft_toupper", std::bind(toupperTest::launchTest));
+	testList.emplace("ft_memalloc", std::bind(memallocTest::launchTest));
+	testList.emplace("ft_strnew", std::bind(strnewTest::launchTest));
 	testList.emplace("ft_putchar", std::bind(putcharTest::launchTest));
 	testList.emplace("ft_putstr", std::bind(putstrTest::launchTest));
 	testList.emplace("ft_putendl", std::bind(putendlTest::launchTest));

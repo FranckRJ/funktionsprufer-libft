@@ -25,7 +25,9 @@ bool memVal::equalsSameType(spAbsVal<void*> cmpVal)
 
 	if (ptrCmpVal != nullptr)
 	{
-		return (len == ptrCmpVal->len && std::memcmp(getVal(), ptrCmpVal->getVal(), len) == 0);
+		return (len == ptrCmpVal->len && ((getVal() == nullptr && ptrCmpVal->getVal() == nullptr) ||
+											((getVal() != nullptr && ptrCmpVal->getVal() != nullptr) &&
+											 std::memcmp(getVal(), ptrCmpVal->getVal(), len) == 0)));
 	}
 	else
 	{
