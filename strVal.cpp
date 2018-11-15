@@ -24,7 +24,14 @@ bool strVal::equalsSameType(spAbsVal<char*> cmpVal)
 
 	if (ptrCmpVal != nullptr)
 	{
-		return (std::string(getVal()) == std::string(ptrCmpVal->getVal()));
+		if (getVal() == nullptr || ptrCmpVal->getVal() == nullptr)
+		{
+			return (getVal() == ptrCmpVal->getVal());
+		}
+		else
+		{
+			return (std::string(getVal()) == std::string(ptrCmpVal->getVal()));
+		}
 	}
 	else
 	{
@@ -34,7 +41,7 @@ bool strVal::equalsSameType(spAbsVal<char*> cmpVal)
 
 std::string strVal::valToString()
 {
-	if (getVal() != NULL)
+	if (getVal() != nullptr)
 	{
 		return std::string(getVal());
 	}
