@@ -39,6 +39,7 @@
 #include "putstrTest.hpp"
 #include "putendlTest.hpp"
 #include "putnbrTest.hpp"
+#include "putchar_fdTest.hpp"
 
 static std::string HELP_INFOS =
 R"str(DESCRIPTION:
@@ -96,6 +97,7 @@ int main(int argc, char **argv)
 	testList.emplace("ft_putstr", std::bind(putstrTest::launchTest));
 	testList.emplace("ft_putendl", std::bind(putendlTest::launchTest));
 	testList.emplace("ft_putnbr", std::bind(putnbrTest::launchTest));
+	testList.emplace("ft_putchar_fd", std::bind(putchar_fdTest::launchTest));
 
 	for (int i = 1; i < argc; ++i)
 	{
