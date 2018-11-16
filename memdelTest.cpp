@@ -35,6 +35,12 @@ void memdelTest::processTest()
 			}
 			return mkSpVoidVal();
 		};
+	std::function<spVoidVal(spMemVal)> baseNullFunction =
+		[&](spMemVal ap)
+		{
+			(void)ap;
+			return mkSpVoidVal();
+		};
 	std::function<spVoidVal(spMemVal)> testFunction =
 		[&](spMemVal ap)
 		{
@@ -44,8 +50,23 @@ void memdelTest::processTest()
 			testAp->setVal(newAp);
 			return mkSpVoidVal();
 		};
+	std::function<spVoidVal(spMemVal)> testNullFunction =
+		[&](spMemVal ap)
+		{
+			(void)ap;
+			ft_memdel(nullptr);
+			return mkSpVoidVal();
+		};
 	auto testValsFun =
 		[&](bool printRes) {return compareVals(printRes, std::pair<spMemVal, spMemVal>(baseAp, testAp));};
+	auto testNullValsFun =
+		[&](bool printRes) {return compareVals(printRes,
+				std::pair<spBaseVal<bool>, spBaseVal<bool>>(mkSpBaseVal<bool>(true, "pas crash"), mkSpBaseVal<bool>(true, "pas crash")));};
+
+	if (!dontDoPotentialCrashTest)
+	{
+		testThisFunAndVals(baseNullFunction, testNullFunction, testNullValsFun, baseAp);
+	}
 
 	{
 		baseAp->setVal(nullptr);
