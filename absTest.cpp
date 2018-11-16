@@ -16,7 +16,10 @@ void absTest::startTest(std::string funName)
 
 void absTest::msgTestBegin(std::string funName)
 {
-	std::cout << " --- Test de " << funName << " ---" << std::endl;
+	int nbOfSpaces = 75 - funName.size();
+	std::cout << " " << std::string((nbOfSpaces / 2) + (nbOfSpaces % 2), '-') << " ";
+	std::cout << funName;
+	std::cout << " " << std::string(nbOfSpaces / 2, '-') << std::endl;
 }
 
 void absTest::msgTestEnd()
