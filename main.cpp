@@ -39,6 +39,7 @@
 #include "strclrTest.hpp"
 #include "striterTest.hpp"
 #include "striteriTest.hpp"
+#include "strmapTest.hpp"
 #include "strtrimTest.hpp"
 #include "itoaTest.hpp"
 #include "putcharTest.hpp"
@@ -106,6 +107,7 @@ int main(int argc, char **argv)
 	testList.emplace("ft_strclr", std::bind(strclrTest::launchTest));
 	testList.emplace("ft_striter", std::bind(striterTest::launchTest));
 	testList.emplace("ft_striteri", std::bind(striteriTest::launchTest));
+	testList.emplace("ft_strmap", std::bind(strmapTest::launchTest));
 	testList.emplace("ft_strtrim", std::bind(strtrimTest::launchTest));
 	testList.emplace("ft_itoa", std::bind(itoaTest::launchTest));
 	testList.emplace("ft_putchar", std::bind(putcharTest::launchTest));
