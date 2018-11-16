@@ -36,6 +36,7 @@
 #include "memdelTest.hpp"
 #include "strnewTest.hpp"
 #include "strdelTest.hpp"
+#include "strclrTest.hpp"
 #include "strtrimTest.hpp"
 #include "putcharTest.hpp"
 #include "putstrTest.hpp"
@@ -98,7 +99,8 @@ int main(int argc, char **argv)
 	testList.emplace("ft_memalloc", std::bind(memallocTest::launchTest));
 	testList.emplace("ft_memdel", std::bind(memdelTest::launchTest));
 	testList.emplace("ft_strnew", std::bind(strnewTest::launchTest));
-	testList.emplace("ft_strdel", std::bind(memdelTest::launchTest));
+	testList.emplace("ft_strdel", std::bind(strdelTest::launchTest));
+	testList.emplace("ft_strclr", std::bind(strclrTest::launchTest));
 	testList.emplace("ft_strtrim", std::bind(strtrimTest::launchTest));
 	testList.emplace("ft_putchar", std::bind(putcharTest::launchTest));
 	testList.emplace("ft_putstr", std::bind(putstrTest::launchTest));
