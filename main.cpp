@@ -44,6 +44,7 @@
 #include "strequTest.hpp"
 #include "strnequTest.hpp"
 #include "strsubTest.hpp"
+#include "strjoinTest.hpp"
 #include "strtrimTest.hpp"
 #include "itoaTest.hpp"
 #include "putcharTest.hpp"
@@ -116,6 +117,7 @@ int main(int argc, char **argv)
 	testList.emplace("ft_strequ", std::bind(strequTest::launchTest));
 	testList.emplace("ft_strnequ", std::bind(strnequTest::launchTest));
 	testList.emplace("ft_strsub", std::bind(strsubTest::launchTest));
+	testList.emplace("ft_strjoin", std::bind(strjoinTest::launchTest));
 	testList.emplace("ft_strtrim", std::bind(strtrimTest::launchTest));
 	testList.emplace("ft_itoa", std::bind(itoaTest::launchTest));
 	testList.emplace("ft_putchar", std::bind(putcharTest::launchTest));
