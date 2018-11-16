@@ -33,6 +33,7 @@
 #include "tolowerTest.hpp"
 #include "toupperTest.hpp"
 #include "memallocTest.hpp"
+#include "memdelTest.hpp"
 #include "strnewTest.hpp"
 #include "strtrimTest.hpp"
 #include "putcharTest.hpp"
@@ -94,6 +95,7 @@ int main(int argc, char **argv)
 	testList.emplace("ft_tolower", std::bind(tolowerTest::launchTest));
 	testList.emplace("ft_toupper", std::bind(toupperTest::launchTest));
 	testList.emplace("ft_memalloc", std::bind(memallocTest::launchTest));
+	testList.emplace("ft_memdel", std::bind(memdelTest::launchTest));
 	testList.emplace("ft_strnew", std::bind(strnewTest::launchTest));
 	testList.emplace("ft_strtrim", std::bind(strtrimTest::launchTest));
 	testList.emplace("ft_putchar", std::bind(putcharTest::launchTest));
