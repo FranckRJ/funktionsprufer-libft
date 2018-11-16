@@ -37,6 +37,7 @@
 #include "strnewTest.hpp"
 #include "strdelTest.hpp"
 #include "strclrTest.hpp"
+#include "striterTest.hpp"
 #include "strtrimTest.hpp"
 #include "itoaTest.hpp"
 #include "putcharTest.hpp"
@@ -102,6 +103,7 @@ int main(int argc, char **argv)
 	testList.emplace("ft_strnew", std::bind(strnewTest::launchTest));
 	testList.emplace("ft_strdel", std::bind(strdelTest::launchTest));
 	testList.emplace("ft_strclr", std::bind(strclrTest::launchTest));
+	testList.emplace("ft_striter", std::bind(striterTest::launchTest));
 	testList.emplace("ft_strtrim", std::bind(strtrimTest::launchTest));
 	testList.emplace("ft_itoa", std::bind(itoaTest::launchTest));
 	testList.emplace("ft_putchar", std::bind(putcharTest::launchTest));
