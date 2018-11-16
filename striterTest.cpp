@@ -26,9 +26,9 @@ int striterTest::launchTest()
 void striterTest::processTest()
 {
 	char fStrParamTab[] = "void (*f)(char *)";
-	spStrVal baseS = mkSpStrVal(nullptr);
-	spStrVal testS = mkSpStrVal(nullptr);
-	spStrVal ptrFunStrParam = mkSpStrVal(nullptr);
+	spStrVal baseS = mkSpStrVal(nullptr, "s");
+	spStrVal testS = mkSpStrVal(nullptr, "s");
+	spStrVal ptrFunStrParam = mkSpStrVal(nullptr, "f");
 	std::function<spVoidVal(spStrVal, spStrVal)> baseFunction =
 		[&](spStrVal s, spStrVal f)
 		{
