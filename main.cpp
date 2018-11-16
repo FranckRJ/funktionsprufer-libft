@@ -1,5 +1,7 @@
 #include <iostream>
 #include <map>
+#include <list>
+#include <algorithm>
 #include <string>
 #include <functional>
 
@@ -64,6 +66,7 @@ LISTE DES COMMANDES :
 <nom_de_fonction>         Affiche le detail de cette fonction (mode verbeux).
                           Plusieurs fonctions peuvent etres appelees, seuls les fonctions appelees
                           seront testees.
+-r<nom_de_fonction>       Desactive les tests de cette fonction en mode non-verbeux.
 --erronly                 Affiche uniquement les tests echoues lors du mode verbeux.
 --nopotcrash              Ne teste pas les fonction susceptibles de crasher.
 --nocolor                 Desactive l'affichage avec des couleurs.
@@ -74,6 +77,7 @@ int main(int argc, char **argv)
 	int realArgc = argc - 1;
 	int errcount = 0;
 	std::map<std::string, std::function<int()>> testList;
+	std::list<std::string> removedTests;
 	std::string curArg;
 
 	std::cout << std::unitbuf;
@@ -135,7 +139,13 @@ int main(int argc, char **argv)
 		if(curArg[0] == '-')
 		{
 			--realArgc;
-			if (curArg == "--erronly")
+			if (curArg.substr(0, 2) == "-r")
+			{
+				curArg = curArg.substr(2);
+				curArg = (curArg.substr(0, 3) == "ft_") ? curArg : "ft_" + curArg;
+				removedTests.push_back(curArg);
+			}
+			else if (curArg == "--erronly")
 			{
 				absTest::showOnlyErrors = true;
 			}
@@ -160,7 +170,10 @@ int main(int argc, char **argv)
 		absTest::isVerbose = false;
 		for (const std::pair<std::string, std::function<int()>>& thisFunc : testList)
 		{
-			errcount += thisFunc.second();
+			if (std::find(removedTests.begin(), removedTests.end(), thisFunc.first) == removedTests.end())
+			{
+				errcount += thisFunc.second();
+			}
 		}
 	}
 	else
