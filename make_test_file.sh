@@ -7,7 +7,7 @@ read -r -d '' VAR << EOM
 class ${1}Test : absTest
 {
 public:
-	${1}::${1}();
+	${1}Test();
 	static int launchTest();
 protected:
 	void processTest();
@@ -27,7 +27,7 @@ read -r -d '' WAR << EOM
 #include "cppStrVal.hpp"
 #include "${1}Test.hpp"
 
-${1}::${1}()
+${1}Test::${1}Test()
 {
 #ifdef FT_$(echo "$1"|awk '{print toupper($0)}')_EXIST
 	funToTestExist = true;
