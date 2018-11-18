@@ -5,6 +5,15 @@
 #include "baseVal.hpp"
 #include "isasciiTest.hpp"
 
+isasciiTest::isasciiTest()
+{
+#ifdef FT_ISASCII_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int isasciiTest::launchTest()
 {
 	isasciiTest test;
@@ -16,6 +25,7 @@ int isasciiTest::launchTest()
 
 void isasciiTest::processTest()
 {
+#ifdef FT_ISASCII_EXIST
 	std::function<spBaseVal<int>(spBaseVal<int>)> baseFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(isascii(x->getVal()));};
 	std::function<spBaseVal<int>(spBaseVal<int>)> testFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(ft_isascii(x->getVal()));};
 
@@ -23,4 +33,5 @@ void isasciiTest::processTest()
 	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(letter));
 	}
+#endif
 }

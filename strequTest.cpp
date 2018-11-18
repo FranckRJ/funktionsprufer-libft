@@ -9,6 +9,15 @@
 #include "cppStrVal.hpp"
 #include "strequTest.hpp"
 
+strequTest::strequTest()
+{
+#ifdef FT_STREQU_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strequTest::launchTest()
 {
 	strequTest test;
@@ -20,6 +29,7 @@ int strequTest::launchTest()
 
 void strequTest::processTest()
 {
+#ifdef FT_STREQU_EXIST
 	std::function<spBaseVal<int>(spCstStrVal, spCstStrVal)> baseFunction =
 		[&](spCstStrVal s1, spCstStrVal s2)
 		{
@@ -63,4 +73,5 @@ void strequTest::processTest()
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal("exel"), mkSpCstStrVal("lexec"));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal("___"), mkSpCstStrVal("..."));
 	}
+#endif
 }

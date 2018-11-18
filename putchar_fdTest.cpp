@@ -13,6 +13,15 @@
 #include "utils.hpp"
 #include "putchar_fdTest.hpp"
 
+putchar_fdTest::putchar_fdTest()
+{
+#ifdef FT_PUTCHAR_FD_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int putchar_fdTest::launchTest()
 {
 	putchar_fdTest test;
@@ -24,6 +33,7 @@ int putchar_fdTest::launchTest()
 
 void putchar_fdTest::processTest()
 {
+#ifdef FT_PUTCHAR_FD_EXIST
 	std::function<spCppStrVal(spBaseVal<char>, spBaseVal<int>)> baseFunction =
 		[&](spBaseVal<char> c, spBaseVal<int> fd)
 		{
@@ -43,4 +53,5 @@ void putchar_fdTest::processTest()
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<char>(letter), mkSpBaseVal<int>(new_fd));
 		close(new_fd);
 	}
+#endif
 }

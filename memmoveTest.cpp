@@ -6,6 +6,15 @@
 #include "baseVal.hpp"
 #include "memmoveTest.hpp"
 
+memmoveTest::memmoveTest()
+{
+#ifdef FT_MEMMOVE_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int memmoveTest::launchTest()
 {
 	memmoveTest test;
@@ -17,6 +26,7 @@ int memmoveTest::launchTest()
 
 void memmoveTest::processTest()
 {
+#ifdef FT_MEMMOVE_EXIST
 	spMemVal testValForBase = mkSpMemVal(nullptr, 0, "dst");
 	spMemVal testValForTest = mkSpMemVal(nullptr, 0, "dst");
 	std::function<spAddrVal(spMemVal, spMemVal, spBaseVal<size_t>)> baseFunction =
@@ -70,4 +80,5 @@ void memmoveTest::processTest()
 		testValForTest->setValAndLen(tabValForTest + 5, sizeof(tabValForTest) - 5);
 		testThisFunAndVals(baseFunctionDecal, testFunctionDecal, testValsFun, testValForBase, mkSpMemVal(tabValForBase + 5 + i, 5, "src"), mkSpBaseVal<size_t>(5, "len"), mkSpBaseVal<int>(i, "(decalage)"));
 	}
+#endif
 }

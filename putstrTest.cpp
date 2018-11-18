@@ -8,6 +8,15 @@
 #include "stdOutputGetter.hpp"
 #include "putstrTest.hpp"
 
+putstrTest::putstrTest()
+{
+#ifdef FT_PUTSTR_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int putstrTest::launchTest()
 {
 	putstrTest test;
@@ -19,6 +28,7 @@ int putstrTest::launchTest()
 
 void putstrTest::processTest()
 {
+#ifdef FT_PUTSTR_EXIST
 	std::function<spCppStrVal(spStrVal)> baseFunction = [](spStrVal s) {return mkSpCppStrVal(std::string(s->getVal()));};
 	std::function<spCppStrVal(spStrVal)> baseNullFunction = [](spStrVal s) {(void)s; return mkSpCppStrVal("");};
 	std::function<spCppStrVal(spStrVal)> testFunction = [](spStrVal s)
@@ -47,4 +57,5 @@ void putstrTest::processTest()
 		char test[] = "Sa l\nut.";
 		testThisFun(baseFunction, testFunction, mkSpStrVal(test));
 	}
+#endif
 }

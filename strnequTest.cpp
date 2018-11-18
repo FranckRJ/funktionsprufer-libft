@@ -9,6 +9,15 @@
 #include "cppStrVal.hpp"
 #include "strnequTest.hpp"
 
+strnequTest::strnequTest()
+{
+#ifdef FT_STRNEQU_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strnequTest::launchTest()
 {
 	strnequTest test;
@@ -20,6 +29,7 @@ int strnequTest::launchTest()
 
 void strnequTest::processTest()
 {
+#ifdef FT_STRNEQU_EXIST
 	std::function<spBaseVal<int>(spCstStrVal, spCstStrVal, spBaseVal<size_t>)> baseFunction =
 		[&](spCstStrVal s1, spCstStrVal s2, spBaseVal<size_t> n)
 		{
@@ -81,4 +91,5 @@ void strnequTest::processTest()
 		for (int i = 0; i <= 5; ++i)
 			testThisFun(baseFunction, testFunction, mkSpCstStrVal("___"), mkSpCstStrVal("..."), mkSpBaseVal<size_t>(i));
 	}
+#endif
 }

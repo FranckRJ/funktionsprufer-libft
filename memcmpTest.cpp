@@ -5,6 +5,15 @@
 #include "baseVal.hpp"
 #include "memcmpTest.hpp"
 
+memcmpTest::memcmpTest()
+{
+#ifdef FT_MEMCMP_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int memcmpTest::launchTest()
 {
 	memcmpTest test;
@@ -16,6 +25,7 @@ int memcmpTest::launchTest()
 
 void memcmpTest::processTest()
 {
+#ifdef FT_MEMCMP_EXIST
 	spMemVal testS1 = mkSpMemVal(nullptr, 0);
 	spMemVal testS2 = mkSpMemVal(nullptr, 0);
 	std::function<spBaseVal<int>(spMemVal, spMemVal, spBaseVal<size_t>)> baseFunction =
@@ -97,4 +107,5 @@ void memcmpTest::processTest()
 		testS2->setValAndLen(newTestS2, sizeof(newTestS2));
 		testThisFun(baseFunction, testFunction, testS1, testS2, mkSpBaseVal<size_t>(sizeof(newTestS1)));
 	}
+#endif
 }

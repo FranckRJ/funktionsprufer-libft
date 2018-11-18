@@ -6,6 +6,15 @@
 #include "baseVal.hpp"
 #include "memchrTest.hpp"
 
+memchrTest::memchrTest()
+{
+#ifdef FT_MEMCHR_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int memchrTest::launchTest()
 {
 	memchrTest test;
@@ -17,6 +26,7 @@ int memchrTest::launchTest()
 
 void memchrTest::processTest()
 {
+#ifdef FT_MEMCHR_EXIST
 	spMemVal testVal = mkSpMemVal(nullptr, 0);
 	std::function<spAddrVal(spMemVal, spBaseVal<int>, spBaseVal<size_t>)> baseFunction =
 		[](spMemVal s, spBaseVal<int> c, spBaseVal<size_t> n)
@@ -75,4 +85,5 @@ void memchrTest::processTest()
 		testVal->setValAndLen(test, sizeof(test));
 		testThisFun(baseFunction, testFunction, testVal, mkSpBaseVal<int>(-8), mkSpBaseVal<size_t>(sizeof(test)));
 	}
+#endif
 }

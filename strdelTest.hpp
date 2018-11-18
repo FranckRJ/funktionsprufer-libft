@@ -6,6 +6,7 @@
 class strdelTest : absTest
 {
 public:
+	strdelTest();
 	static int launchTest();
 protected:
 	void processTest();

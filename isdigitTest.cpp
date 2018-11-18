@@ -5,6 +5,15 @@
 #include "baseVal.hpp"
 #include "isdigitTest.hpp"
 
+isdigitTest::isdigitTest()
+{
+#ifdef FT_ISDIGIT_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int isdigitTest::launchTest()
 {
 	isdigitTest test;
@@ -16,6 +25,7 @@ int isdigitTest::launchTest()
 
 void isdigitTest::processTest()
 {
+#ifdef FT_ISDIGIT_EXIST
 	std::function<spBaseVal<int>(spBaseVal<int>)> baseFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(isdigit(x->getVal()));};
 	std::function<spBaseVal<int>(spBaseVal<int>)> testFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(ft_isdigit(x->getVal()));};
 
@@ -23,4 +33,5 @@ void isdigitTest::processTest()
 	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(letter));
 	}
+#endif
 }

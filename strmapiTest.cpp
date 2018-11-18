@@ -8,10 +8,21 @@
 #include "cppStrVal.hpp"
 #include "strmapiTest.hpp"
 
+#ifdef FT_STRMAPI_EXIST
 static char strmapi_f(unsigned int i, char c)
 {
 	(void)c;
 	return '0' + i;
+}
+#endif
+
+strmapiTest::strmapiTest()
+{
+#ifdef FT_STRMAPI_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
 }
 
 int strmapiTest::launchTest()
@@ -25,6 +36,7 @@ int strmapiTest::launchTest()
 
 void strmapiTest::processTest()
 {
+#ifdef FT_STRMAPI_EXIST
 	char fStrParamTab[] = "char (*f)(unsigned int, char)";
 	spStrVal baseS = mkSpStrVal(nullptr, "s");
 	spStrVal testS = mkSpStrVal(nullptr, "s");
@@ -99,4 +111,5 @@ void strmapiTest::processTest()
 		testS->setVal(testSTab);
 		testThisFun(baseFunction, testFunction, baseS, ptrFunStrParam);
 	}
+#endif
 }

@@ -8,6 +8,15 @@
 #include "cppStrVal.hpp"
 #include "strcmpTest.hpp"
 
+strcmpTest::strcmpTest()
+{
+#ifdef FT_STRCMP_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strcmpTest::launchTest()
 {
 	strcmpTest test;
@@ -19,6 +28,7 @@ int strcmpTest::launchTest()
 
 void strcmpTest::processTest()
 {
+#ifdef FT_STRCMP_EXIST
 	spStrVal s1ParamTest = mkSpStrVal(nullptr);
 	spStrVal s2ParamTest = mkSpStrVal(nullptr);
 	std::function<spBaseVal<int>(spStrVal, spStrVal)> baseFunction =
@@ -116,4 +126,5 @@ void strcmpTest::processTest()
 		s2ParamTest->setVal(s2Tab);
 		testThisFun(baseFunction, testFunction, s1ParamTest, s2ParamTest);
 	}
+#endif
 }

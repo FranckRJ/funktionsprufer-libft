@@ -9,6 +9,15 @@
 #include "cppStrVal.hpp"
 #include "memdelTest.hpp"
 
+memdelTest::memdelTest()
+{
+#ifdef FT_MEMDEL_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int memdelTest::launchTest()
 {
 	memdelTest test;
@@ -20,6 +29,7 @@ int memdelTest::launchTest()
 
 void memdelTest::processTest()
 {
+#ifdef FT_MEMDEL_EXIST
 	spMemVal baseAp = mkSpMemVal(nullptr, 0, "ap");
 	spMemVal testAp = mkSpMemVal(nullptr, 0, "ap");
 	std::function<spVoidVal(spMemVal)> baseFunction =
@@ -79,4 +89,5 @@ void memdelTest::processTest()
 		testAp->setVal(new char);
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseAp);
 	}
+#endif
 }

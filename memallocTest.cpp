@@ -8,6 +8,15 @@
 #include "cppStrVal.hpp"
 #include "memallocTest.hpp"
 
+memallocTest::memallocTest()
+{
+#ifdef FT_MEMALLOC_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int memallocTest::launchTest()
 {
 	memallocTest test;
@@ -19,6 +28,7 @@ int memallocTest::launchTest()
 
 void memallocTest::processTest()
 {
+#ifdef FT_MEMALLOC_EXIST
 	std::function<spMemVal(spBaseVal<size_t>)> baseFunction =
 		[&](spBaseVal<size_t> size)
 		{
@@ -51,4 +61,5 @@ void memallocTest::processTest()
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(1));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(50));
 	}
+#endif
 }

@@ -13,6 +13,15 @@
 #include "utils.hpp"
 #include "putendl_fdTest.hpp"
 
+putendl_fdTest::putendl_fdTest()
+{
+#ifdef FT_PUTENDL_FD_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int putendl_fdTest::launchTest()
 {
 	putendl_fdTest test;
@@ -24,6 +33,7 @@ int putendl_fdTest::launchTest()
 
 void putendl_fdTest::processTest()
 {
+#ifdef FT_PUTENDL_FD_EXIST
 	std::function<spCppStrVal(spStrVal, spBaseVal<int>)> baseFunction =
 		[&](spStrVal s, spBaseVal<int> fd)
 		{
@@ -78,4 +88,5 @@ void putendl_fdTest::processTest()
 		testThisFun(baseFunction, testFunction, mkSpStrVal(test), mkSpBaseVal<int>(new_fd));
 		close(new_fd);
 	}
+#endif
 }

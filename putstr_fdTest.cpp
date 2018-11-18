@@ -13,6 +13,15 @@
 #include "utils.hpp"
 #include "putstr_fdTest.hpp"
 
+putstr_fdTest::putstr_fdTest()
+{
+#ifdef FT_PUTSTR_FD_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int putstr_fdTest::launchTest()
 {
 	putstr_fdTest test;
@@ -24,6 +33,7 @@ int putstr_fdTest::launchTest()
 
 void putstr_fdTest::processTest()
 {
+#ifdef FT_PUTSTR_FD_EXIST
 	std::function<spCppStrVal(spStrVal, spBaseVal<int>)> baseFunction =
 		[&](spStrVal s, spBaseVal<int> fd)
 		{
@@ -71,4 +81,5 @@ void putstr_fdTest::processTest()
 		testThisFun(baseFunction, testFunction, mkSpStrVal(test), mkSpBaseVal<int>(new_fd));
 		close(new_fd);
 	}
+#endif
 }

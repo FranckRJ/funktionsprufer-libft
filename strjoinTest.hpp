@@ -6,6 +6,7 @@
 class strjoinTest : absTest
 {
 public:
+	strjoinTest();
 	static int launchTest();
 protected:
 	void processTest();

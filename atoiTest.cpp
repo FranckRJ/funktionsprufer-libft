@@ -8,6 +8,15 @@
 #include "cppStrVal.hpp"
 #include "atoiTest.hpp"
 
+atoiTest::atoiTest()
+{
+#ifdef FT_ATOI_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int atoiTest::launchTest()
 {
 	atoiTest test;
@@ -19,6 +28,7 @@ int atoiTest::launchTest()
 
 void atoiTest::processTest()
 {
+#ifdef FT_ATOI_EXIST
 	spStrVal paramTest = mkSpStrVal(nullptr);
 	std::function<spBaseVal<int>(spStrVal)> baseFunction =
 		[&](spStrVal str)
@@ -131,4 +141,5 @@ void atoiTest::processTest()
 		paramTest->setVal(paramTab);
 		testThisFun(baseFunction, testFunction, paramTest);
 	}
+#endif
 }

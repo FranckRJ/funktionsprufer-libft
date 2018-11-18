@@ -6,6 +6,7 @@
 class memmoveTest : absTest
 {
 public:
+	memmoveTest();
 	static int launchTest();
 protected:
 	void processTest();

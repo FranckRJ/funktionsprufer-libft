@@ -8,6 +8,15 @@
 #include "cppStrVal.hpp"
 #include "itoaTest.hpp"
 
+itoaTest::itoaTest()
+{
+#ifdef FT_ITOA_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int itoaTest::launchTest()
 {
 	itoaTest test;
@@ -19,6 +28,7 @@ int itoaTest::launchTest()
 
 void itoaTest::processTest()
 {
+#ifdef FT_ITOA_EXIST
 	std::function<spStrVal(spBaseVal<int>)> baseFunction =
 		[&](spBaseVal<int> n)
 		{
@@ -44,4 +54,5 @@ void itoaTest::processTest()
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-2147483647));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(2147483646));
 	}
+#endif
 }

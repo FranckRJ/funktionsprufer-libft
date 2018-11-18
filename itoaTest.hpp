@@ -6,6 +6,7 @@
 class itoaTest : absTest
 {
 public:
+	itoaTest();
 	static int launchTest();
 protected:
 	void processTest();

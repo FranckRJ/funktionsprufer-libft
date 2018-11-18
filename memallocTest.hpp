@@ -6,6 +6,7 @@
 class memallocTest : absTest
 {
 public:
+	memallocTest();
 	static int launchTest();
 protected:
 	void processTest();

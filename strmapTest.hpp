@@ -6,6 +6,7 @@
 class strmapTest : absTest
 {
 public:
+	strmapTest();
 	static int launchTest();
 protected:
 	void processTest();

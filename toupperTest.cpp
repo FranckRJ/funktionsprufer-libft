@@ -5,6 +5,15 @@
 #include "baseVal.hpp"
 #include "toupperTest.hpp"
 
+toupperTest::toupperTest()
+{
+#ifdef FT_TOUPPER_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int toupperTest::launchTest()
 {
 	toupperTest test;
@@ -16,6 +25,7 @@ int toupperTest::launchTest()
 
 void toupperTest::processTest()
 {
+#ifdef FT_TOUPPER_EXIST
 	std::function<spBaseVal<int>(spBaseVal<int>)> baseFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(toupper(x->getVal()));};
 	std::function<spBaseVal<int>(spBaseVal<int>)> testFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(ft_toupper(x->getVal()));};
 
@@ -23,4 +33,5 @@ void toupperTest::processTest()
 	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(letter));
 	}
+#endif
 }

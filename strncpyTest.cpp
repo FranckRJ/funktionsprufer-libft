@@ -8,6 +8,15 @@
 #include "cppStrVal.hpp"
 #include "strncpyTest.hpp"
 
+strncpyTest::strncpyTest()
+{
+#ifdef FT_STRNCPY_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strncpyTest::launchTest()
 {
 	strncpyTest test;
@@ -19,6 +28,7 @@ int strncpyTest::launchTest()
 
 void strncpyTest::processTest()
 {
+#ifdef FT_STRNCPY_EXIST
 	spStrVal paramTest = mkSpStrVal(nullptr, "src");
 	spStrVal baseVal = mkSpStrVal(nullptr, "dst");
 	spStrVal testVal = mkSpStrVal(nullptr, "dst");
@@ -67,4 +77,5 @@ void strncpyTest::processTest()
 		testVal->setVal(testValTab);
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, paramTest, mkSpBaseVal<size_t>(i, "len"));
 	}
+#endif
 }

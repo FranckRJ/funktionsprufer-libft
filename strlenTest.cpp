@@ -5,6 +5,15 @@
 #include "strVal.hpp"
 #include "strlenTest.hpp"
 
+strlenTest::strlenTest()
+{
+#ifdef FT_STRLEN_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strlenTest::launchTest()
 {
 	strlenTest test;
@@ -16,6 +25,7 @@ int strlenTest::launchTest()
 
 void strlenTest::processTest()
 {
+#ifdef FT_STRLEN_EXIST
 	spStrVal valToTest = mkSpStrVal(nullptr);
 	std::function<spBaseVal<size_t>(spStrVal)> baseFunction =
 		[](spStrVal s)
@@ -43,4 +53,5 @@ void strlenTest::processTest()
 		valToTest->setVal(testVal);
 		testThisFun(baseFunction, testFunction, valToTest);
 	}
+#endif
 }

@@ -6,6 +6,7 @@
 class striteriTest : absTest
 {
 public:
+	striteriTest();
 	static int launchTest();
 protected:
 	void processTest();

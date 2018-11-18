@@ -75,7 +75,8 @@ LISTE DES COMMANDES :
 int main(int argc, char **argv)
 {
 	int realArgc = argc - 1;
-	int errcount = 0;
+	int errCount = 0;
+	int funNumberThatDontExist = 0;
 	std::map<std::string, std::function<int()>> testList;
 	std::list<std::string> removedTests;
 	std::string curArg;
@@ -172,7 +173,16 @@ int main(int argc, char **argv)
 		{
 			if (std::find(removedTests.begin(), removedTests.end(), thisFunc.first) == removedTests.end())
 			{
-				errcount += thisFunc.second();
+				int tmpResult = thisFunc.second();
+
+				if (tmpResult == -1)
+				{
+					funNumberThatDontExist += 1;
+				}
+				else
+				{
+					errCount += tmpResult;
+				}
 			}
 		}
 	}
@@ -187,16 +197,29 @@ int main(int argc, char **argv)
 
 			if (it != testList.end())
 			{
-				errcount += it->second();
+				int tmpResult = it->second();
+
+				if (tmpResult == -1)
+				{
+					funNumberThatDontExist += 1;
+				}
+				else
+				{
+					errCount += tmpResult;
+				}
 			}
 			else if (strArg[0] != '-')
 			{
-				std::cout << "Erreur : fonction " << strArg << " non trouvee." << std::endl << std::endl;
+				std::cout << "Erreur : pas de tests pour la fonction " << strArg << "." << std::endl << std::endl;
 			}
 		}
 	}
 
-	std::cout << "Erreurs : " << errcount << std::endl;
+	std::cout << "Erreurs : " << errCount << std::endl;
+	if (funNumberThatDontExist > 0)
+	{
+		std::cout << "Fonctions non testees : " << funNumberThatDontExist << std::endl;
+	}
 
 	return 0;
 }

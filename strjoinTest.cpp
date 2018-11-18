@@ -9,6 +9,15 @@
 #include "cppStrVal.hpp"
 #include "strjoinTest.hpp"
 
+strjoinTest::strjoinTest()
+{
+#ifdef FT_STRJOIN_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strjoinTest::launchTest()
 {
 	strjoinTest test;
@@ -20,6 +29,7 @@ int strjoinTest::launchTest()
 
 void strjoinTest::processTest()
 {
+#ifdef FT_STRJOIN_EXIST
 	spCstStrVal s1Test = mkSpCstStrVal(nullptr);
 	spCstStrVal s2Test = mkSpCstStrVal(nullptr);
 	spStrVal resTest = mkSpStrVal(nullptr, "", true);
@@ -144,4 +154,5 @@ void strjoinTest::processTest()
 		s2Test->setVal(s2Val);
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, s1Test, s2Test);
 	}
+#endif
 }

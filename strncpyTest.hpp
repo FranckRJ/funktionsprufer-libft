@@ -6,6 +6,7 @@
 class strncpyTest : absTest
 {
 public:
+	strncpyTest();
 	static int launchTest();
 protected:
 	void processTest();

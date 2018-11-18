@@ -6,6 +6,15 @@
 #include "baseVal.hpp"
 #include "memcpyTest.hpp"
 
+memcpyTest::memcpyTest()
+{
+#ifdef FT_MEMCPY_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int memcpyTest::launchTest()
 {
 	memcpyTest test;
@@ -17,6 +26,7 @@ int memcpyTest::launchTest()
 
 void memcpyTest::processTest()
 {
+#ifdef FT_MEMCPY_EXIST
 	spMemVal testValForBase = mkSpMemVal(nullptr, 0, "dst");
 	spMemVal testValForTest = mkSpMemVal(nullptr, 0, "dst");
 	std::function<spAddrVal(spMemVal, spMemVal, spBaseVal<size_t>)> baseFunction =
@@ -48,4 +58,5 @@ void memcpyTest::processTest()
 		testValForTest->setValAndLen(tabValForTest, sizeof(tabValForTest));
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpMemVal(test, sizeof(test), "src"), mkSpBaseVal<size_t>(i, "n"));
 	}
+#endif
 }

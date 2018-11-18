@@ -5,6 +5,15 @@
 #include "baseVal.hpp"
 #include "isprintTest.hpp"
 
+isprintTest::isprintTest()
+{
+#ifdef FT_ISPRINT_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int isprintTest::launchTest()
 {
 	isprintTest test;
@@ -16,6 +25,7 @@ int isprintTest::launchTest()
 
 void isprintTest::processTest()
 {
+#ifdef FT_ISPRINT_EXIST
 	std::function<spBaseVal<int>(spBaseVal<int>)> baseFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(isprint(x->getVal()));};
 	std::function<spBaseVal<int>(spBaseVal<int>)> testFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(ft_isprint(x->getVal()));};
 
@@ -23,4 +33,5 @@ void isprintTest::processTest()
 	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(letter));
 	}
+#endif
 }

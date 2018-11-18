@@ -8,6 +8,15 @@
 #include "cppStrVal.hpp"
 #include "strnewTest.hpp"
 
+strnewTest::strnewTest()
+{
+#ifdef FT_STRNEW_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strnewTest::launchTest()
 {
 	strnewTest test;
@@ -19,6 +28,7 @@ int strnewTest::launchTest()
 
 void strnewTest::processTest()
 {
+#ifdef FT_STRNEW_EXIST
 	std::function<spMemVal(spBaseVal<size_t>)> baseFunction =
 		[&](spBaseVal<size_t> size)
 		{
@@ -62,4 +72,5 @@ void strnewTest::processTest()
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(1));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(50));
 	}
+#endif
 }

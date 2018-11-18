@@ -7,6 +7,15 @@
 #include "strVal.hpp"
 #include "strlcatTest.hpp"
 
+strlcatTest::strlcatTest()
+{
+#ifdef FT_STRLCAT_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strlcatTest::launchTest()
 {
 	strlcatTest test;
@@ -18,6 +27,7 @@ int strlcatTest::launchTest()
 
 void strlcatTest::processTest()
 {
+#ifdef FT_STRLCAT_EXIST
 	spStrVal testValForBase = mkSpStrVal((char*)NULL, "dst");
 	spStrVal testValForTest = mkSpStrVal((char*)NULL, "dst");
 	std::function<spBaseVal<size_t>(spStrVal, spStrVal, spBaseVal<size_t>)> baseFunction =
@@ -44,4 +54,5 @@ void strlcatTest::processTest()
 		testValForTest->setVal(tabValForTest);
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpStrVal(test), mkSpBaseVal<size_t>(i));
 	}
+#endif
 }

@@ -6,6 +6,7 @@
 class putchar_fdTest : absTest
 {
 public:
+	putchar_fdTest();
 	static int launchTest();
 protected:
 	void processTest();

@@ -5,6 +5,15 @@
 #include "baseVal.hpp"
 #include "isalnumTest.hpp"
 
+isalnumTest::isalnumTest()
+{
+#ifdef FT_ISALNUM_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int isalnumTest::launchTest()
 {
 	isalnumTest test;
@@ -16,6 +25,7 @@ int isalnumTest::launchTest()
 
 void isalnumTest::processTest()
 {
+#ifdef FT_ISALNUM_EXIST
 	std::function<spBaseVal<int>(spBaseVal<int>)> baseFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(isalnum(x->getVal()));};
 	std::function<spBaseVal<int>(spBaseVal<int>)> testFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(ft_isalnum(x->getVal()));};
 
@@ -23,4 +33,5 @@ void isalnumTest::processTest()
 	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(letter));
 	}
+#endif
 }

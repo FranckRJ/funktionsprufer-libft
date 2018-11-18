@@ -9,9 +9,20 @@
 #include "cppStrVal.hpp"
 #include "striterTest.hpp"
 
+#ifdef FT_STRITER_EXIST
 static void striter_f(char *c)
 {
 	*c = *c + 1;
+}
+#endif
+
+striterTest::striterTest()
+{
+#ifdef FT_STRITER_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
 }
 
 int striterTest::launchTest()
@@ -25,6 +36,7 @@ int striterTest::launchTest()
 
 void striterTest::processTest()
 {
+#ifdef FT_STRITER_EXIST
 	char fStrParamTab[] = "void (*f)(char *)";
 	spStrVal baseS = mkSpStrVal(nullptr, "s");
 	spStrVal testS = mkSpStrVal(nullptr, "s");
@@ -98,4 +110,5 @@ void striterTest::processTest()
 		testS->setVal(testSTab);
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseS, ptrFunStrParam);
 	}
+#endif
 }

@@ -9,6 +9,15 @@
 #include "cppStrVal.hpp"
 #include "strsubTest.hpp"
 
+strsubTest::strsubTest()
+{
+#ifdef FT_STRSUB_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strsubTest::launchTest()
 {
 	strsubTest test;
@@ -20,6 +29,7 @@ int strsubTest::launchTest()
 
 void strsubTest::processTest()
 {
+#ifdef FT_STRSUB_EXIST
 	std::function<spStrVal(spCstStrVal, spBaseVal<unsigned int>, spBaseVal<size_t>)> baseFunction =
 		[&](spCstStrVal s, spBaseVal<unsigned int> start, spBaseVal<size_t> len)
 		{
@@ -56,4 +66,5 @@ void strsubTest::processTest()
 			}
 		}
 	}
+#endif
 }

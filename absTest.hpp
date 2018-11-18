@@ -37,6 +37,7 @@ private:
 	void msgTestBegin(std::string funName);
 	void msgTestEnd();
 protected:
+	bool funToTestExist = false;
 	int testCount = 0;
 	int errCount = 0;
 };

@@ -8,6 +8,7 @@
 #include "cppStrVal.hpp"
 #include "strtrimTest.hpp"
 
+#ifdef FT_STRTRIM_EXIST
 namespace
 {
 	std::string& ltrim(std::string& str, const std::string& chars = " \t\n ")
@@ -27,6 +28,16 @@ namespace
 		return ltrim(rtrim(str, chars), chars);
 	}
 }
+#endif
+
+strtrimTest::strtrimTest()
+{
+#ifdef FT_STRTRIM_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
 
 int strtrimTest::launchTest()
 {
@@ -39,6 +50,7 @@ int strtrimTest::launchTest()
 
 void strtrimTest::processTest()
 {
+#ifdef FT_STRTRIM_EXIST
 	spStrVal paramTest = mkSpStrVal(nullptr);
 	spStrVal resultTest = mkSpStrVal(nullptr, "", true);
 	std::function<spStrVal(spStrVal)> baseFunction =
@@ -154,4 +166,5 @@ void strtrimTest::processTest()
 		paramTest->setVal(testVal);
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, paramTest);
 	}
+#endif
 }

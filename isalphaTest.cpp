@@ -5,6 +5,15 @@
 #include "baseVal.hpp"
 #include "isalphaTest.hpp"
 
+isalphaTest::isalphaTest()
+{
+#ifdef FT_ISALPHA_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int isalphaTest::launchTest()
 {
 	isalphaTest test;
@@ -16,6 +25,7 @@ int isalphaTest::launchTest()
 
 void isalphaTest::processTest()
 {
+#ifdef FT_ISALPHA_EXIST
 	std::function<spBaseVal<int>(spBaseVal<int>)> baseFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(isalpha(x->getVal()));};
 	std::function<spBaseVal<int>(spBaseVal<int>)> testFunction = [](spBaseVal<int> x) {return mkSpBaseVal<int>(ft_isalpha(x->getVal()));};
 
@@ -23,4 +33,5 @@ void isalphaTest::processTest()
 	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(letter));
 	}
+#endif
 }

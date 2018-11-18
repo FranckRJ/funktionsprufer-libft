@@ -6,6 +6,7 @@
 class memchrTest : absTest
 {
 public:
+	memchrTest();
 	static int launchTest();
 protected:
 	void processTest();

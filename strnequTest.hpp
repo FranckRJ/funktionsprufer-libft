@@ -6,6 +6,7 @@
 class strnequTest : absTest
 {
 public:
+	strnequTest();
 	static int launchTest();
 protected:
 	void processTest();

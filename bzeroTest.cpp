@@ -7,6 +7,15 @@
 #include "voidVal.hpp"
 #include "bzeroTest.hpp"
 
+bzeroTest::bzeroTest()
+{
+#ifdef FT_BZERO_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int bzeroTest::launchTest()
 {
 	bzeroTest test;
@@ -18,6 +27,7 @@ int bzeroTest::launchTest()
 
 void bzeroTest::processTest()
 {
+#ifdef FT_BZERO_EXIST
 	spMemVal testValForBase = mkSpMemVal((char*)NULL, 0, "s");
 	spMemVal testValForTest = mkSpMemVal((char*)NULL, 0, "s");
 	std::function<spVoidVal(spMemVal, spBaseVal<size_t>)> baseFunction =
@@ -40,4 +50,5 @@ void bzeroTest::processTest()
 		testValForTest->setValAndLen(tabValForTest, sizeof(tabValForTest));
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpBaseVal<size_t>(i, "n"));
 	}
+#endif
 }

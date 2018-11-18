@@ -8,6 +8,15 @@
 #include "cppStrVal.hpp"
 #include "strchrTest.hpp"
 
+strchrTest::strchrTest()
+{
+#ifdef FT_STRCHR_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strchrTest::launchTest()
 {
 	strchrTest test;
@@ -19,6 +28,7 @@ int strchrTest::launchTest()
 
 void strchrTest::processTest()
 {
+#ifdef FT_STRCHR_EXIST
 	spStrVal paramTest = mkSpStrVal(nullptr);
 	std::function<spAddrVal(spStrVal, spBaseVal<int>)> baseFunction =
 		[&](spStrVal s, spBaseVal<int> c)
@@ -59,4 +69,5 @@ void strchrTest::processTest()
 		testThisFun(baseFunction, testFunction, paramTest, mkSpBaseVal<int>(-8));
 		testThisFun(baseFunction, testFunction, paramTest, mkSpBaseVal<int>(-300));
 	}
+#endif
 }

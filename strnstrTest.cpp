@@ -8,6 +8,15 @@
 #include "cppStrVal.hpp"
 #include "strnstrTest.hpp"
 
+strnstrTest::strnstrTest()
+{
+#ifdef FT_STRNSTR_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strnstrTest::launchTest()
 {
 	strnstrTest test;
@@ -19,6 +28,7 @@ int strnstrTest::launchTest()
 
 void strnstrTest::processTest()
 {
+#ifdef FT_STRNSTR_EXIST
 	spStrVal hayParamTest = mkSpStrVal(nullptr);
 	spStrVal neeParamTest = mkSpStrVal(nullptr);
 	std::function<spAddrVal(spStrVal, spStrVal, spBaseVal<size_t>)> baseFunction =
@@ -128,4 +138,5 @@ void strnstrTest::processTest()
 		neeParamTest->setVal(neeTab);
 		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest, mkSpBaseVal<size_t>(i));
 	}
+#endif
 }

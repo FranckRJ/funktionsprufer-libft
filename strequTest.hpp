@@ -6,6 +6,7 @@
 class strequTest : absTest
 {
 public:
+	strequTest();
 	static int launchTest();
 protected:
 	void processTest();

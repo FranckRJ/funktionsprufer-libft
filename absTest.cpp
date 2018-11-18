@@ -12,6 +12,11 @@ void absTest::startTest(std::string funName)
 	msgTestBegin(funName);
 	processTest();
 	msgTestEnd();
+
+	if (!funToTestExist)
+	{
+		errCount = -1;
+	}
 }
 
 void absTest::msgTestBegin(std::string funName)
@@ -24,7 +29,11 @@ void absTest::msgTestBegin(std::string funName)
 
 void absTest::msgTestEnd()
 {
-	if (!isVerbose)
+	if (!funToTestExist)
+	{
+		std::cout << "La fonction a tester n'existe pas." << std::endl;
+	}
+	else if (!isVerbose)
 	{
 		std::cout << "Tests passes : " << testCount - errCount << "/" << testCount;
 		if (errCount > 0)

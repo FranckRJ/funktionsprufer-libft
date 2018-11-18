@@ -9,6 +9,15 @@
 #include "cppStrVal.hpp"
 #include "strclrTest.hpp"
 
+strclrTest::strclrTest()
+{
+#ifdef FT_STRCLR_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int strclrTest::launchTest()
 {
 	strclrTest test;
@@ -20,6 +29,7 @@ int strclrTest::launchTest()
 
 void strclrTest::processTest()
 {
+#ifdef FT_STRCLR_EXIST
 	spMemVal baseS = mkSpMemVal(nullptr, 0, "s");
 	spMemVal testS = mkSpMemVal(nullptr, 0, "s");
 	std::function<spVoidVal(spMemVal)> baseFunction =
@@ -78,4 +88,5 @@ void strclrTest::processTest()
 		testS->setValAndLen(sValTest, sizeof(sValTest));
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseS);
 	}
+#endif
 }

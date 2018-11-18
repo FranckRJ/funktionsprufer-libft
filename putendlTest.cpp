@@ -8,6 +8,15 @@
 #include "stdOutputGetter.hpp"
 #include "putendlTest.hpp"
 
+putendlTest::putendlTest()
+{
+#ifdef FT_PUTENDL_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int putendlTest::launchTest()
 {
 	putendlTest test;
@@ -19,6 +28,7 @@ int putendlTest::launchTest()
 
 void putendlTest::processTest()
 {
+#ifdef FT_PUTENDL_EXIST
 	std::function<spCppStrVal(spStrVal)> baseFunction = [](spStrVal s) {return mkSpCppStrVal(std::string(s->getVal()) + "\n");};
 	std::function<spCppStrVal(spStrVal)> baseNullFunction = [](spStrVal s) {(void)s; return mkSpCppStrVal("\n");};
 	std::function<spCppStrVal(spStrVal)> testFunction = [](spStrVal s)
@@ -51,4 +61,5 @@ void putendlTest::processTest()
 		char test[] = "Salut.\n";
 		testThisFun(baseFunction, testFunction, mkSpStrVal(test));
 	}
+#endif
 }

@@ -7,6 +7,15 @@
 #include "stdOutputGetter.hpp"
 #include "putcharTest.hpp"
 
+putcharTest::putcharTest()
+{
+#ifdef FT_PUTCHAR_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int putcharTest::launchTest()
 {
 	putcharTest test;
@@ -18,6 +27,7 @@ int putcharTest::launchTest()
 
 void putcharTest::processTest()
 {
+#ifdef FT_PUTCHAR_EXIST
 	std::function<spCppStrVal(spBaseVal<char>)> baseFunction = [](spBaseVal<char> c) {return mkSpCppStrVal(std::string(1, c->getVal()));};
 	std::function<spCppStrVal(spBaseVal<char>)> testFunction = [](spBaseVal<char> c)
 	{
@@ -32,4 +42,5 @@ void putcharTest::processTest()
 	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<char>(letter));
 	}
+#endif
 }

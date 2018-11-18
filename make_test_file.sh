@@ -7,6 +7,7 @@ read -r -d '' VAR << EOM
 class ${1}Test : absTest
 {
 public:
+	${1}::${1}();
 	static int launchTest();
 protected:
 	void processTest();
@@ -26,6 +27,15 @@ read -r -d '' WAR << EOM
 #include "cppStrVal.hpp"
 #include "${1}Test.hpp"
 
+${1}::${1}()
+{
+#ifdef FT_$(echo "$1"|awk '{print toupper($0)}')_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int ${1}Test::launchTest()
 {
 	${1}Test test;
@@ -37,6 +47,7 @@ int ${1}Test::launchTest()
 
 void ${1}Test::processTest()
 {
+#ifdef FT_$(echo "$1"|awk '{print toupper($0)}')_EXIST
 	std::function<> baseFunction =
 		[&]()
 		{
@@ -51,6 +62,7 @@ void ${1}Test::processTest()
 	{
 		testThisFun(baseFunction, testFunction);
 	}
+#endif
 }
 EOM
 

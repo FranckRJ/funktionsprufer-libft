@@ -10,6 +10,15 @@
 #include "utils.hpp"
 #include "putnbrTest.hpp"
 
+putnbrTest::putnbrTest()
+{
+#ifdef FT_PUTNBR_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int putnbrTest::launchTest()
 {
 	putnbrTest test;
@@ -21,6 +30,7 @@ int putnbrTest::launchTest()
 
 void putnbrTest::processTest()
 {
+#ifdef FT_PUTNBR_EXIST
 	std::function<spCppStrVal(spBaseVal<int>)> baseFunction =
 		[&](spBaseVal<int> n)
 		{
@@ -47,4 +57,5 @@ void putnbrTest::processTest()
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-159));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-5));
 	}
+#endif
 }

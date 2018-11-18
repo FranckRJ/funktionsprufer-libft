@@ -6,6 +6,7 @@
 class toupperTest : absTest
 {
 public:
+	toupperTest();
     static int launchTest();
 protected:
     void processTest();

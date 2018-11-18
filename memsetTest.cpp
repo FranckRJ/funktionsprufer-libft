@@ -6,6 +6,15 @@
 #include "baseVal.hpp"
 #include "memsetTest.hpp"
 
+memsetTest::memsetTest()
+{
+#ifdef FT_MEMSET_EXIST
+	funToTestExist = true;
+#else
+	funToTestExist = false;
+#endif
+}
+
 int memsetTest::launchTest()
 {
 	memsetTest test;
@@ -17,6 +26,7 @@ int memsetTest::launchTest()
 
 void memsetTest::processTest()
 {
+#ifdef FT_MEMSET_EXIST
 	spMemVal testValForBase = mkSpMemVal((char*)NULL, 0, "b");
 	spMemVal testValForTest = mkSpMemVal((char*)NULL, 0, "b");
 	std::function<spAddrVal(spMemVal, spBaseVal<int>, spBaseVal<size_t>)> baseFunction =
@@ -65,4 +75,5 @@ void memsetTest::processTest()
 		testValForTest->setValAndLen(tabValForTest, sizeof(tabValForTest));
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpBaseVal<int>(300, "c"), mkSpBaseVal<size_t>(i, "len"));
 	}
+#endif
 }

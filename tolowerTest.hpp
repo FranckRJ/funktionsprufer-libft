@@ -6,6 +6,7 @@
 class tolowerTest : absTest
 {
 public:
+	tolowerTest();
 	static int launchTest();
 protected:
 	void processTest();
