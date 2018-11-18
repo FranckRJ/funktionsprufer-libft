@@ -4,6 +4,8 @@
 #include <string>
 #include <functional>
 
+#include "funExistDefines.hpp"
+
 class absTest
 {
 public:
