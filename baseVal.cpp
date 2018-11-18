@@ -14,3 +14,9 @@ std::string baseVal<bool>::valToString()
 		return "false";
 	}
 }
+
+template <>
+std::string baseVal<char>::valToString()
+{
+	return std::string(1, getVal());
+}

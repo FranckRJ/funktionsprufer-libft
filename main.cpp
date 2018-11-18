@@ -48,6 +48,7 @@
 #include "strsubTest.hpp"
 #include "strjoinTest.hpp"
 #include "strtrimTest.hpp"
+#include "strsplitTest.hpp"
 #include "itoaTest.hpp"
 #include "putcharTest.hpp"
 #include "putstrTest.hpp"
@@ -124,6 +125,7 @@ int main(int argc, char **argv)
 	testList.emplace("ft_strsub", std::bind(strsubTest::launchTest));
 	testList.emplace("ft_strjoin", std::bind(strjoinTest::launchTest));
 	testList.emplace("ft_strtrim", std::bind(strtrimTest::launchTest));
+	testList.emplace("ft_strsplit", std::bind(strsplitTest::launchTest));
 	testList.emplace("ft_itoa", std::bind(itoaTest::launchTest));
 	testList.emplace("ft_putchar", std::bind(putcharTest::launchTest));
 	testList.emplace("ft_putstr", std::bind(putstrTest::launchTest));
