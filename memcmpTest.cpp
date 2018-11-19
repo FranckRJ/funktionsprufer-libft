@@ -41,7 +41,14 @@ void memcmpTest::processTest()
 
 	if (!dontDoTestThatCrash)
 	{
-		testThisFun(baseFunction, testFunction, testS1, testS2, mkSpBaseVal<size_t>(50));
+		testThisFun(baseFunction, testFunction, testS1, testS2, mkSpBaseVal<size_t>(4));
+		char tabS1[4] = {1, 2, 3, 4};
+		testS1->setValAndLen(tabS1, sizeof(tabS1));
+		testThisFun(baseFunction, testFunction, testS1, testS2, mkSpBaseVal<size_t>(4));
+		char tabS2[4] = {1, 2, 3, 4};
+		testS1->setValAndLen(nullptr, 0);
+		testS2->setValAndLen(tabS2, sizeof(tabS2));
+		testThisFun(baseFunction, testFunction, testS1, testS2, mkSpBaseVal<size_t>(4));
 	}
 
 	testThisFun(baseFunction, testFunction, testS1, testS2, mkSpBaseVal<size_t>(0));
