@@ -61,12 +61,12 @@ void memmoveTest::processTest()
 	if (!dontDoTestThatCrash)
 	{
 		char test[4] = {1, 2, 3, 4};
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpMemVal(test, sizeof(test), "src"), mkSpBaseVal<size_t>(50, "len"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpMemVal(test, sizeof(test), "src"), mkSpBaseVal<size_t>(4, "len"));
 		char tabValForBase[4] = {5, 15, 13};
 		char tabValForTest[4] = {5, 15, 13};
 		testValForBase->setValAndLen(tabValForBase, sizeof(tabValForBase));
 		testValForTest->setValAndLen(tabValForTest, sizeof(tabValForTest));
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpMemVal(nullptr, 0, "src"), mkSpBaseVal<size_t>(50, "len"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpMemVal(nullptr, 0, "src"), mkSpBaseVal<size_t>(4, "len"));
 	}
 
 	testValForBase->setValAndLen(nullptr, 0);
