@@ -87,6 +87,26 @@ void atoiTest::processTest()
 		testThisFun(baseFunction, testFunction, paramTest);
 	}
 	{
+		char paramTab[] = "10";
+		paramTest->setVal(paramTab);
+		testThisFun(baseFunction, testFunction, paramTest);
+	}
+	{
+		char paramTab[] = "-10";
+		paramTest->setVal(paramTab);
+		testThisFun(baseFunction, testFunction, paramTest);
+	}
+	{
+		char paramTab[] = "10159";
+		paramTest->setVal(paramTab);
+		testThisFun(baseFunction, testFunction, paramTest);
+	}
+	{
+		char paramTab[] = "-1052";
+		paramTest->setVal(paramTab);
+		testThisFun(baseFunction, testFunction, paramTest);
+	}
+	{
 		char paramTab[] = " 59";
 		paramTest->setVal(paramTab);
 		testThisFun(baseFunction, testFunction, paramTest);

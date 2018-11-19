@@ -47,6 +47,10 @@ void itoaTest::processTest()
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(0));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-5));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(8));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-10));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(10));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-10156));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(1023));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-138));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(7539));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-2147483648));
