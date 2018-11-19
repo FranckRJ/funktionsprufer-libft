@@ -217,7 +217,16 @@ int main(int argc, char **argv)
 		}
 	}
 
-	std::cout << "Erreurs : " << errCount << std::endl;
+	std::cout << colors::bold();
+	if (errCount == 0)
+	{
+		std::cout << colors::green();
+	}
+	else
+	{
+		std::cout << colors::red();
+	}
+	std::cout << "Erreurs : " << errCount << colors::reset() << std::endl;
 	if (funNumberThatDontExist > 0)
 	{
 		std::cout << "Fonctions non testees : " << funNumberThatDontExist << std::endl;
