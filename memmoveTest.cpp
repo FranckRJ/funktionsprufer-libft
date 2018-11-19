@@ -58,9 +58,29 @@ void memmoveTest::processTest()
 	std::function<bool(bool)> testValsFun =
 		[&](bool printRes) { return compareVals(printRes, std::pair<spMemVal, spMemVal>(testValForBase, testValForTest)); };
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
+		char test[4] = {1, 2, 3, 4};
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpMemVal(test, sizeof(test), "src"), mkSpBaseVal<size_t>(50, "len"));
+		char tabValForBase[4] = {5, 15, 13};
+		char tabValForTest[4] = {5, 15, 13};
+		testValForBase->setValAndLen(tabValForBase, sizeof(tabValForBase));
+		testValForTest->setValAndLen(tabValForTest, sizeof(tabValForTest));
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpMemVal(nullptr, 0, "src"), mkSpBaseVal<size_t>(50, "len"));
+	}
+
+	testValForBase->setValAndLen(nullptr, 0);
+	testValForTest->setValAndLen(nullptr, 0);
+	testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpMemVal(nullptr, 0, "src"), mkSpBaseVal<size_t>(50, "len"));
+
+	for (int i = 0; i <= 4; ++i)
+	{
+		char test[4] = {1, 2, 3, 4};
+		char tabValForBase[4] = {5, 15, 13};
+		char tabValForTest[4] = {5, 15, 13};
+		testValForBase->setValAndLen(tabValForBase, sizeof(tabValForBase));
+		testValForTest->setValAndLen(tabValForTest, sizeof(tabValForTest));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpMemVal(test, sizeof(test), "src"), mkSpBaseVal<size_t>(i, "len"));
 	}
 
 	for (int i = 0; i <= 5; ++i)

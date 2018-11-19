@@ -37,10 +37,12 @@ void bzeroTest::processTest()
 	std::function<bool(bool)> testValsFun =
 		[&](bool printRes) { return compareVals(printRes, std::pair<spMemVal, spMemVal>(testValForBase, testValForTest)); };
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpBaseVal<size_t>(0, "n"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpBaseVal<size_t>(50, "n"));
 	}
+
+	testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpBaseVal<size_t>(0, "n"));
 
 	for (int i = 0; i <= 4; ++i)
 	{

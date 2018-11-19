@@ -11,7 +11,7 @@ class absTest
 public:
 	static bool isVerbose;
 	static bool showOnlyErrors;
-	static bool dontDoPotentialCrashTest;
+	static bool dontDoTestThatCrash;
 	virtual ~absTest() = default;
 protected:
 	void startTest(std::string funName);

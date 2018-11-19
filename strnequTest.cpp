@@ -49,7 +49,7 @@ void strnequTest::processTest()
 			return mkSpBaseVal<int>(ft_strnequ(s1->getVal(), s2->getVal(), n->getVal()));
 		};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(0));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(1));

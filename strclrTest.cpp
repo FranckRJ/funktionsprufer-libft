@@ -52,7 +52,7 @@ void strclrTest::processTest()
 	auto testValsFun =
 		[&](bool printRes) {return compareVals(printRes, std::pair<spMemVal, spMemVal>(baseS, testS));};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseS);
 	}

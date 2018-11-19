@@ -44,10 +44,12 @@ void memsetTest::processTest()
 	std::function<bool(bool)> testValsFun =
 		[&](bool printRes) { return compareVals(printRes, std::pair<spMemVal, spMemVal>(testValForBase, testValForTest)); };
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpBaseVal<int>(50, "c"), mkSpBaseVal<size_t>(0, "len"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpBaseVal<int>(50, "c"), mkSpBaseVal<size_t>(50, "len"));
 	}
+
+	testThisFunAndVals(baseFunction, testFunction, testValsFun, testValForBase, mkSpBaseVal<int>(50, "c"), mkSpBaseVal<size_t>(0, "len"));
 
 	for (int i = 0; i <= 4; ++i)
 	{

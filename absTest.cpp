@@ -5,7 +5,7 @@
 
 bool absTest::isVerbose = false;
 bool absTest::showOnlyErrors = false;
-bool absTest::dontDoPotentialCrashTest = false;
+bool absTest::dontDoTestThatCrash = false;
 
 void absTest::startTest(std::string funName)
 {

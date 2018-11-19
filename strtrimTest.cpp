@@ -84,7 +84,7 @@ void strtrimTest::processTest()
 								(resultTest->getVal() != paramTest->getVal())), "result != s")));
 		};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, paramTest);
 	}

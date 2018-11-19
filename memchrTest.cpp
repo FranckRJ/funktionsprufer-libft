@@ -39,10 +39,12 @@ void memchrTest::processTest()
 			return mkSpAddrVal(ft_memchr(s->getVal(), c->getVal(), n->getVal()), s->getVal());
 		};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
-		testThisFun(baseFunction, testFunction, testVal, mkSpBaseVal<int>(50), mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, testVal, mkSpBaseVal<int>(50), mkSpBaseVal<size_t>(72));
 	}
+
+	testThisFun(baseFunction, testFunction, testVal, mkSpBaseVal<int>(50), mkSpBaseVal<size_t>(0));
 
 	{
 		char test[] = {1, 2, 3, 4, 5};

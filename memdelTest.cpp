@@ -73,7 +73,7 @@ void memdelTest::processTest()
 		[&](bool printRes) {return compareVals(printRes,
 				std::pair<spBaseVal<bool>, spBaseVal<bool>>(mkSpBaseVal<bool>(true, "pas crash"), mkSpBaseVal<bool>(true, "pas crash")));};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
 		testThisFunAndVals(baseNullFunction, testNullFunction, testNullValsFun, baseAp);
 	}

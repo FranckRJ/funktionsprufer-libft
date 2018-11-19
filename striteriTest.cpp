@@ -72,7 +72,7 @@ void striteriTest::processTest()
 	auto testValsFun =
 		[&](bool printRes) {return compareVals(printRes, std::pair<spStrVal, spStrVal>(baseS, testS));};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseS, ptrFunStrParam);
 		ptrFunStrParam->setVal(fStrParamTab);

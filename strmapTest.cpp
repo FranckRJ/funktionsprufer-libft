@@ -72,7 +72,7 @@ void strmapTest::processTest()
 			return mkSpStrVal(new_str, "", true);
 		};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
 		testThisFun(baseFunction, testFunction, baseS, ptrFunStrParam);
 		ptrFunStrParam->setVal(fStrParamTab);

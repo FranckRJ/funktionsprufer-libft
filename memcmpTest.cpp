@@ -39,10 +39,12 @@ void memcmpTest::processTest()
 			return mkSpBaseVal<int>(ft_memcmp(s1->getVal(), s2->getVal(), n->getVal()));
 		};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
-		testThisFun(baseFunction, testFunction, testS1, testS2, mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, testS1, testS2, mkSpBaseVal<size_t>(50));
 	}
+
+	testThisFun(baseFunction, testFunction, testS1, testS2, mkSpBaseVal<size_t>(0));
 
 	{
 		char newTestS1[] = "";

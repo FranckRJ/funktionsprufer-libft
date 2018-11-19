@@ -51,7 +51,7 @@ void putendl_fdTest::processTest()
 			return mkSpCppStrVal(newFile.getFileContent());
 		};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
 		testThisFun(baseFunction, testFunction, mkSpStrVal(nullptr), mkSpCppStrVal(openFile::tmpfileName));
 	}

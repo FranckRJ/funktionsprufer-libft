@@ -63,7 +63,7 @@ void strjoinTest::processTest()
 								(resTest->getVal() != s1Test->getVal() && resTest->getVal() != s2Test->getVal())), "res != s1 && res != s2")));
 		};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, s1Test, s2Test);
 		char s1Val[] = "lol";

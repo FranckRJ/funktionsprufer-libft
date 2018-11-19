@@ -76,7 +76,7 @@ void strsplitTest::processTest()
 			return mkSpStrTabVal(ft_strsplit(s->getVal(), c->getVal()), -1, "", true);
 		};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpBaseVal<char>('a'));
 	}

@@ -40,7 +40,7 @@ void putendlTest::processTest()
 		return mkSpCppStrVal(openFile::getTmpfileContent());
 	};
 
-	if (!dontDoPotentialCrashTest)
+	if (!dontDoTestThatCrash)
 	{
 		testThisFun(baseNullFunction, testFunction, mkSpStrVal(nullptr));
 	}
