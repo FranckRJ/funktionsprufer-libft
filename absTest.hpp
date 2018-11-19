@@ -17,11 +17,12 @@ protected:
 	void startTest(std::string funName);
 	virtual void processTest() = 0;
 	template <class Tret, class... Tpar>
+	bool crashTestThisFun(std::function<Tret(Tpar...)> funToTest,
+						  Tpar... params);
+	template <class Tret, class... Tpar>
 	void testThisFun(std::function<Tret(Tpar...)> baseFun,
 					 std::function<Tret(Tpar...)> testFun,
 					 Tpar... params);
-	template <class Tvalbase, class Tvaltest>
-	void testThisVal(Tvalbase baseVal, Tvaltest testVal);
 	template <class Tret, class... Tpar>
 	void testThisFunAndVals(std::function<Tret(Tpar...)> baseFun,
 							std::function<Tret(Tpar...)> testFun,
@@ -32,6 +33,8 @@ protected:
 	template <class Tfstval>
 	bool compareVals(bool printRes, Tfstval val);
 private:
+	template <class Tptr>
+	std::shared_ptr<Tptr> buildPtrValOfPtr(std::shared_ptr<Tptr> thisPtr);
 	template <class Tfstpar>
 	void printParamsVal(Tfstpar param);
 	template <class Tfstpar, class... Tothpar>

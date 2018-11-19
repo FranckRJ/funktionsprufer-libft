@@ -1,6 +1,25 @@
 #include <iostream>
+#include <unistd.h>
 
 #include "colors.hpp"
+
+template <class Tret, class... Tpar>
+bool absTest::crashTestThisFun(std::function<Tret(Tpar...)> funToTest,
+							   Tpar... params)
+{
+	pid_t childPid = 0;
+	int childStatus = 0;
+	if ((childPid = fork()) == 0)
+	{
+		funToTest(params...);
+		exit(0);
+	}
+	else
+	{
+		waitpid(childPid, &childStatus, 0);
+	}
+	return childStatus != 0;
+}
 
 template <class Tret, class... Tpar>
 void absTest::testThisFun(std::function<Tret(Tpar...)> baseFun,
@@ -11,19 +30,24 @@ void absTest::testThisFun(std::function<Tret(Tpar...)> baseFun,
 	Tret testRet;
 	bool success;
 
-	if (isVerbose && !showOnlyErrors)
-	{
-		std::cout << "Parametre : ";
-		printParamsVal(params...);
-		std::cout << std::endl;
-	}
+	baseRet = buildPtrValOfPtr(baseRet);
+	testRet = buildPtrValOfPtr(testRet);
 
-	baseRet = baseFun(params...);
-	testRet = testFun(params...);
+	baseRet->setIsCrashVal(crashTestThisFun(baseFun, params...));
+	testRet->setIsCrashVal(crashTestThisFun(testFun, params...));
+
+	if (!(baseRet->getIsCrashVal()))
+	{
+		baseRet = baseFun(params...);
+	}
+	if (!(testRet->getIsCrashVal()))
+	{
+		testRet = testFun(params...);
+	}
 	success = (baseRet->equalsAnyType(testRet));
 	++testCount;
 
-	if (isVerbose && showOnlyErrors && !success)
+	if (isVerbose && (!showOnlyErrors || (showOnlyErrors && !success)))
 	{
 		std::cout << "Parametre : ";
 		printParamsVal(params...);
@@ -37,37 +61,8 @@ void absTest::testThisFun(std::function<Tret(Tpar...)> baseFun,
 
 	if ((!showOnlyErrors && isVerbose) || (showOnlyErrors && isVerbose && !success))
 	{
-		std::cout << "Retour fonction base : \"" << baseRet->valToString() << "\"" << std::endl;
-		std::cout << "Retour fonction test : \"" << testRet->valToString() << "\"" << std::endl;
-
-		if (success)
-		{
-			std::cout << colors::bold() + colors::green() << "OK" << colors::reset() << std::endl;
-		}
-		else
-		{
-			std::cout << colors::bold() + colors::red() << " --- ERREUR" << colors::reset() << std::endl;
-		}
-	}
-}
-
-template <class Tvalbase, class Tvaltest>
-void absTest::testThisVal(Tvalbase baseVal, Tvaltest testVal)
-{
-	bool success;
-
-	success = (baseVal->equalsAnyType(testVal));
-	++testCount;
-
-	if (!success)
-	{
-		errCount += 1;
-	}
-
-	if ((!showOnlyErrors && isVerbose) || (showOnlyErrors && isVerbose && !success))
-	{
-		std::cout << "Valeur base : \"" << baseVal->valToString() << "\"" << std::endl;
-		std::cout << "Valeur test : \"" << testVal->valToString() << "\"" << std::endl;
+		std::cout << "Retour fonction base : \"" << baseRet->valToStringOrCrash() << "\"" << std::endl;
+		std::cout << "Retour fonction test : \"" << testRet->valToStringOrCrash() << "\"" << std::endl;
 
 		if (success)
 		{
@@ -91,20 +86,25 @@ void absTest::testThisFunAndVals(std::function<Tret(Tpar...)> baseFun,
 	bool funAndValsSuccess;
 	bool funSuccess;
 
-	if (isVerbose && !showOnlyErrors)
-	{
-		std::cout << "Parametre : ";
-		printParamsVal(params...);
-		std::cout << std::endl;
-	}
+	baseRet = buildPtrValOfPtr(baseRet);
+	testRet = buildPtrValOfPtr(testRet);
 
-	baseRet = baseFun(params...);
-	testRet = testFun(params...);
+	baseRet->setIsCrashVal(crashTestThisFun(baseFun, params...));
+	testRet->setIsCrashVal(crashTestThisFun(testFun, params...));
+
+	if (!(baseRet->getIsCrashVal()))
+	{
+		baseRet = baseFun(params...);
+	}
+	if (!(testRet->getIsCrashVal()))
+	{
+		testRet = testFun(params...);
+	}
 	funSuccess = (baseRet->equalsAnyType(testRet));
 	funAndValsSuccess = funSuccess && valsToTest(false);
 	++testCount;
 
-	if (isVerbose && showOnlyErrors && !funAndValsSuccess)
+	if (isVerbose && (!showOnlyErrors || (showOnlyErrors && !funAndValsSuccess)))
 	{
 		std::cout << "Parametre : ";
 		printParamsVal(params...);
@@ -120,8 +120,8 @@ void absTest::testThisFunAndVals(std::function<Tret(Tpar...)> baseFun,
 	{
 		if (!baseRet->getIsVoidVal() && !testRet->getIsVoidVal())
 		{
-			std::cout << "Retour fonction base : \"" << baseRet->valToString() << "\"" << std::endl;
-			std::cout << "Retour fonction test : \"" << testRet->valToString() << "\"";
+			std::cout << "Retour fonction base : \"" << baseRet->valToStringOrCrash() << "\"" << std::endl;
+			std::cout << "Retour fonction test : \"" << testRet->valToStringOrCrash() << "\"";
 			if (!funSuccess)
 			{
 				std::cout << colors::bold() + colors::red() << " <----- ERREUR !!!" << colors::reset();
@@ -166,6 +166,13 @@ bool absTest::compareVals(bool printRes, Tfstval val)
 	}
 
 	return success;
+}
+
+template <class Tptr>
+std::shared_ptr<Tptr> absTest::buildPtrValOfPtr(std::shared_ptr<Tptr> thisPtr)
+{
+	(void)thisPtr;
+	return std::make_shared<Tptr>();
 }
 
 template <class Tfstpar>

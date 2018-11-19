@@ -19,7 +19,7 @@ spStrTabVal mkSpStrTabVal(Args... args)
 class strTabVal : public absVal<char**>
 {
 public:
-	strTabVal(char **newVal, int newTabSize = -1, std::string newName = "", bool newNeedToFree = false);
+	strTabVal(char **newVal = nullptr, int newTabSize = -1, std::string newName = "", bool newNeedToFree = false);
 	~strTabVal();
 	bool equalsSameType(spAbsVal<char**> cmpVal);
 	template <class T>

@@ -19,7 +19,7 @@ spMemVal mkSpMemVal(Args... args)
 class memVal : public absVal<void*>
 {
 public:
-	memVal(void *newVal, size_t newLen, std::string newName = "", bool newNeedToFree = false);
+	memVal(void *newVal = nullptr, size_t newLen = 0, std::string newName = "", bool newNeedToFree = false);
 	~memVal();
 	bool equalsSameType(spAbsVal<void*> cmpVal);
 	size_t getLen();

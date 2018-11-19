@@ -1,7 +1,7 @@
 #include <functional>
 
 #include "libft.h"
-#include "utils.hpp"
+#include "openFile.hpp"
 #include "cppStrVal.hpp"
 #include "baseVal.hpp"
 #include "stdOutputGetter.hpp"
@@ -32,10 +32,10 @@ void putcharTest::processTest()
 	std::function<spCppStrVal(spBaseVal<char>)> testFunction = [](spBaseVal<char> c)
 	{
 		{
-			stdOutputGetter outputGetter;
+			stdOutputGetter outputGetter(openFile::tmpfileName);
 			ft_putchar(c->getVal());
 		}
-		return mkSpCppStrVal(utils::tmpfileToString());
+		return mkSpCppStrVal(openFile::getTmpfileContent());
 	};
 
 	for (int letter = -300; letter <= 300; ++letter)

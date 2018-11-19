@@ -1,16 +1,13 @@
 #include <functional>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 #include "libft.h"
 #include "baseVal.hpp"
 #include "memVal.hpp"
 #include "addrVal.hpp"
 #include "strVal.hpp"
+#include "cstStrVal.hpp"
 #include "cppStrVal.hpp"
-#include "utils.hpp"
+#include "openFile.hpp"
 #include "putchar_fdTest.hpp"
 
 putchar_fdTest::putchar_fdTest()
@@ -34,24 +31,23 @@ int putchar_fdTest::launchTest()
 void putchar_fdTest::processTest()
 {
 #ifdef FT_PUTCHAR_FD_EXIST
-	std::function<spCppStrVal(spBaseVal<char>, spBaseVal<int>)> baseFunction =
-		[&](spBaseVal<char> c, spBaseVal<int> fd)
+	std::function<spCppStrVal(spBaseVal<char>, spCppStrVal)> baseFunction =
+		[&](spBaseVal<char> c, spCppStrVal fn)
 		{
-			(void)fd;
+			(void)fn;
 			return mkSpCppStrVal(std::string(1, c->getVal()));
 		};
-	std::function<spCppStrVal(spBaseVal<char>, spBaseVal<int>)> testFunction =
-		[&](spBaseVal<char> c, spBaseVal<int> fd)
+	std::function<spCppStrVal(spBaseVal<char>, spCppStrVal)> testFunction =
+		[&](spBaseVal<char> c, spCppStrVal fn)
 		{
-			ft_putchar_fd(c->getVal(), fd->getVal());
-			return mkSpCppStrVal(utils::tmpfileToString());
+			openFile newFile(fn->getVal());
+			ft_putchar_fd(c->getVal(), newFile.getFileDesc());
+			return mkSpCppStrVal(newFile.getFileContent());
 		};
 
 	for (int letter = -300; letter <= 300; ++letter)
 	{
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpBaseVal<char>(letter), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<char>(letter), mkSpCppStrVal(openFile::tmpfileName));
 	}
 #endif
 }

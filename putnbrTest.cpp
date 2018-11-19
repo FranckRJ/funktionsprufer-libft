@@ -7,7 +7,7 @@
 #include "strVal.hpp"
 #include "cppStrVal.hpp"
 #include "stdOutputGetter.hpp"
-#include "utils.hpp"
+#include "openFile.hpp"
 #include "putnbrTest.hpp"
 
 putnbrTest::putnbrTest()
@@ -40,10 +40,10 @@ void putnbrTest::processTest()
 		[&](spBaseVal<int> n)
 		{
 			{
-				stdOutputGetter outputGetter;
+				stdOutputGetter outputGetter(openFile::tmpfileName);
 				ft_putnbr(n->getVal());
 			}
-			return mkSpCppStrVal(utils::tmpfileToString());
+			return mkSpCppStrVal(openFile::getTmpfileContent());
 		};
 
 	{

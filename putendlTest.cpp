@@ -1,7 +1,7 @@
 #include <functional>
 
 #include "libft.h"
-#include "utils.hpp"
+#include "openFile.hpp"
 #include "cppStrVal.hpp"
 #include "baseVal.hpp"
 #include "strVal.hpp"
@@ -34,10 +34,10 @@ void putendlTest::processTest()
 	std::function<spCppStrVal(spStrVal)> testFunction = [](spStrVal s)
 	{
 		{
-			stdOutputGetter outputGetter;
+			stdOutputGetter outputGetter(openFile::tmpfileName);
 			ft_putendl(s->getVal());
 		}
-		return mkSpCppStrVal(utils::tmpfileToString());
+		return mkSpCppStrVal(openFile::getTmpfileContent());
 	};
 
 	if (!dontDoPotentialCrashTest)

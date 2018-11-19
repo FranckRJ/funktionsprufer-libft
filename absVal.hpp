@@ -22,13 +22,17 @@ public:
 	virtual T getVal();
 	virtual std::string getName();
 	bool getIsVoidVal();
+	bool getIsCrashVal();
 	virtual void setVal(T newVal);
 	void setIsVoidVal(bool newVal);
+	void setIsCrashVal(bool newVal);
+	std::string valToStringOrCrash();
 	virtual std::string valToString() = 0;
 private:
 	T val;
 	std::string name;
 	bool isVoidVal;
+	bool isCrashVal;
 };
 
 #include "absVal.tpp"

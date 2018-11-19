@@ -1,8 +1,4 @@
 #include <functional>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 #include "libft.h"
 #include "baseVal.hpp"
@@ -10,7 +6,7 @@
 #include "addrVal.hpp"
 #include "strVal.hpp"
 #include "cppStrVal.hpp"
-#include "utils.hpp"
+#include "openFile.hpp"
 #include "putnbr_fdTest.hpp"
 
 putnbr_fdTest::putnbr_fdTest()
@@ -34,71 +30,30 @@ int putnbr_fdTest::launchTest()
 void putnbr_fdTest::processTest()
 {
 #ifdef FT_PUTNBR_FD_EXIST
-	std::function<spCppStrVal(spBaseVal<int>, spBaseVal<int>)> baseFunction =
-		[&](spBaseVal<int> n, spBaseVal<int> fd)
+	std::function<spCppStrVal(spBaseVal<int>, spCppStrVal)> baseFunction =
+		[&](spBaseVal<int> n, spCppStrVal fn)
 		{
-			(void)fd;
+			(void)fn;
 			return mkSpCppStrVal(std::to_string(n->getVal()));
 		};
-	std::function<spCppStrVal(spBaseVal<int>, spBaseVal<int>)> testFunction =
-		[&](spBaseVal<int> n, spBaseVal<int> fd)
+	std::function<spCppStrVal(spBaseVal<int>, spCppStrVal)> testFunction =
+		[&](spBaseVal<int> n, spCppStrVal fn)
 		{
-			ft_putnbr_fd(n->getVal(), fd->getVal());
-			return mkSpCppStrVal(utils::tmpfileToString());
+			openFile newFile(fn->getVal());
+			ft_putnbr_fd(n->getVal(), newFile.getFileDesc());
+			return mkSpCppStrVal(newFile.getFileContent());
 		};
 
 	{
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(0), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
-	}
-
-	{
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(5), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
-	}
-
-	{
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(159), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
-	}
-
-	{
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(2147483647), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
-	}
-
-	{
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(2147483646), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
-	}
-
-	{
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-2147483648), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
-	}
-
-	{
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-2147483647), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
-	}
-
-	{
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-159), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
-	}
-
-	{
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-5), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(0), mkSpCppStrVal(openFile::tmpfileName));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(5), mkSpCppStrVal(openFile::tmpfileName));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(159), mkSpCppStrVal(openFile::tmpfileName));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(2147483647), mkSpCppStrVal(openFile::tmpfileName));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(2147483646), mkSpCppStrVal(openFile::tmpfileName));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-2147483648), mkSpCppStrVal(openFile::tmpfileName));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-2147483647), mkSpCppStrVal(openFile::tmpfileName));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-159), mkSpCppStrVal(openFile::tmpfileName));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(-5), mkSpCppStrVal(openFile::tmpfileName));
 	}
 #endif
 }

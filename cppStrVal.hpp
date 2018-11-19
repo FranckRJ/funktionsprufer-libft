@@ -19,7 +19,7 @@ spCppStrVal mkSpCppStrVal(Args... args)
 class cppStrVal : public absVal<std::string>
 {
 public:
-	cppStrVal(std::string newVal, std::string newName = "");
+	cppStrVal(std::string newVal = "", std::string newName = "");
 	bool equalsSameType(spAbsVal<std::string> cmpVal);
 	std::string valToString();
 };

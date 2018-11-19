@@ -19,7 +19,7 @@ spStrVal mkSpStrVal(Args... args)
 class strVal : public absVal<char*>
 {
 public:
-	strVal(char *newVal, std::string newName = "", bool newNeedToFree = false);
+	strVal(char *newVal = nullptr, std::string newName = "", bool newNeedToFree = false);
 	~strVal();
 	bool equalsSameType(spAbsVal<char*> cmpVal);
 	template <class T>

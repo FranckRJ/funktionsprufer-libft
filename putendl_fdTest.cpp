@@ -1,8 +1,4 @@
 #include <functional>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 #include "libft.h"
 #include "baseVal.hpp"
@@ -10,7 +6,7 @@
 #include "addrVal.hpp"
 #include "strVal.hpp"
 #include "cppStrVal.hpp"
-#include "utils.hpp"
+#include "openFile.hpp"
 #include "putendl_fdTest.hpp"
 
 putendl_fdTest::putendl_fdTest()
@@ -34,10 +30,10 @@ int putendl_fdTest::launchTest()
 void putendl_fdTest::processTest()
 {
 #ifdef FT_PUTENDL_FD_EXIST
-	std::function<spCppStrVal(spStrVal, spBaseVal<int>)> baseFunction =
-		[&](spStrVal s, spBaseVal<int> fd)
+	std::function<spCppStrVal(spStrVal, spCppStrVal)> baseFunction =
+		[&](spStrVal s, spCppStrVal fn)
 		{
-			(void)fd;
+			(void)fn;
 			if (s->getVal() != nullptr)
 			{
 				return mkSpCppStrVal(std::string(s->getVal()) + "\n");
@@ -47,46 +43,37 @@ void putendl_fdTest::processTest()
 				return mkSpCppStrVal("\n");
 			}
 		};
-	std::function<spCppStrVal(spStrVal, spBaseVal<int>)> testFunction =
-		[&](spStrVal s, spBaseVal<int> fd)
+	std::function<spCppStrVal(spStrVal, spCppStrVal)> testFunction =
+		[&](spStrVal s, spCppStrVal fn)
 		{
-			ft_putendl_fd(s->getVal(), fd->getVal());
-			return mkSpCppStrVal(utils::tmpfileToString());
+			openFile newFile(fn->getVal());
+			ft_putendl_fd(s->getVal(), newFile.getFileDesc());
+			return mkSpCppStrVal(newFile.getFileContent());
 		};
 
 	if (!dontDoPotentialCrashTest)
 	{
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpStrVal(nullptr), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
+		testThisFun(baseFunction, testFunction, mkSpStrVal(nullptr), mkSpCppStrVal(openFile::tmpfileName));
 	}
 
 	{
 		char test[] = "Salut";
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpStrVal(test), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
+		testThisFun(baseFunction, testFunction, mkSpStrVal(test), mkSpCppStrVal(openFile::tmpfileName));
 	}
 
 	{
 		char test[] = "";
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpStrVal(test), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
+		testThisFun(baseFunction, testFunction, mkSpStrVal(test), mkSpCppStrVal(openFile::tmpfileName));
 	}
 
 	{
 		char test[] = "Sa l\nut.";
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpStrVal(test), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
+		testThisFun(baseFunction, testFunction, mkSpStrVal(test), mkSpCppStrVal(openFile::tmpfileName));
 	}
 
 	{
 		char test[] = "Salut.\n";
-		int new_fd = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-		testThisFun(baseFunction, testFunction, mkSpStrVal(test), mkSpBaseVal<int>(new_fd));
-		close(new_fd);
+		testThisFun(baseFunction, testFunction, mkSpStrVal(test), mkSpCppStrVal(openFile::tmpfileName));
 	}
 #endif
 }

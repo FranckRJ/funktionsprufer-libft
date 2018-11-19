@@ -4,15 +4,15 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-#include "utils.hpp"
+#include "openFile.hpp"
 #include "stdOutputGetter.hpp"
 
-stdOutputGetter::stdOutputGetter()
+stdOutputGetter::stdOutputGetter(std::string filebufName)
 {
   int newId;
   fflush(stdout);
   oldId = dup(1);
-  newId = open(utils::tmpfileName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+  newId = open(filebufName.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
   dup2(newId, 1);
   close(newId);
 }

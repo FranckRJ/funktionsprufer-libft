@@ -22,7 +22,7 @@ template <class T>
 class baseVal : public absVal<T>
 {
 public:
-	baseVal(T newVal, std::string newName = "");
+	baseVal(T newVal = 0, std::string newName = "");
 	std::string valToString();
 };
 

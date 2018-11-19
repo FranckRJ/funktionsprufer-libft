@@ -19,7 +19,7 @@ spAddrVal mkSpAddrVal(Args... args)
 class addrVal : public absVal<void*>
 {
 public:
-	addrVal(void *newVal, void *newBaseVal, std::string newName = "", bool newNeedToFree = false);
+	addrVal(void *newVal = nullptr, void *newBaseVal = nullptr, std::string newName = "", bool newNeedToFree = false);
 	~addrVal();
 	bool equalsSameType(spAbsVal<void*> cmpVal);
 	template <class T>

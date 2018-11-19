@@ -4,7 +4,7 @@
 class stdOutputGetter
 {
 public:
-  stdOutputGetter();
+  stdOutputGetter(std::string filebufName);
   ~stdOutputGetter();
 private:
     int oldId = 0;
