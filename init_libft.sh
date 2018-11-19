@@ -36,6 +36,14 @@ rm libft.h
 mv tmplibft.h libft.h
 }
 
+function del_new_keyword_libfth
+{
+	sed -i "" "s/ new,/ newPtr,/g" libft.h
+	sed -i "" "s/*new,/*newPtr,/g" libft.h
+	sed -i "" "s/ new)/ newPtr)/g" libft.h
+	sed -i "" "s/*new)/*newPtr)/g" libft.h
+}
+
 function make_define_header
 {
 read -r -d '' START_DEF << EOM
@@ -91,6 +99,7 @@ done
 if [[ "$getLibftFiles" == "true" ]]; then
 	cp "${libftPath}/libft.h" "${libftPath}/libft.a" .
 	add_extern_c_libfth
+	del_new_keyword_libfth
 fi
 if [[ "$genDefineHeader" == "true" ]]; then
 	make_define_header
