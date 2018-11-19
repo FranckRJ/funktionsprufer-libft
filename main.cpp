@@ -63,7 +63,7 @@ static std::string HELP_INFOS =
 R"str(DESCRIPTION:
 Teste l'ensemble des fonctions de la libft et affiche le nombre d'erreurs.
 
-LISTE DES COMMANDES :
+LISTE DES COMMANDES:
 <nom_de_fonction>         Affiche le detail de cette fonction (mode verbeux).
                           Plusieurs fonctions peuvent etres appelees, seuls les fonctions appelees
                           seront testees.
