@@ -47,6 +47,36 @@ void strncatTest::processTest()
 	auto testValsFun =
 		[&](bool printRes) {return compareVals(printRes, std::pair<spStrVal, spStrVal>(baseVal, testVal));};
 
+	if (!dontDoTestThatCrash)
+	{
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, paramTest, mkSpBaseVal<size_t>(0, "n"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, paramTest, mkSpBaseVal<size_t>(5, "n"));
+		char paramTestTab[] = "bonjour";
+		paramTest->setVal(paramTestTab);
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, paramTest, mkSpBaseVal<size_t>(0, "n"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, paramTest, mkSpBaseVal<size_t>(5, "n"));
+		char baseValTab[] = ".............";
+		char testValTab[] = ".............";
+		paramTest->setVal(nullptr);
+		baseVal->setVal(baseValTab);
+		testVal->setVal(testValTab);
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, paramTest, mkSpBaseVal<size_t>(5, "n"));
+	}
+
+	baseVal->setVal(nullptr);
+	testVal->setVal(nullptr);
+
+	{
+		char baseValTab[] = ".............";
+		char testValTab[] = ".............";
+		baseVal->setVal(baseValTab);
+		testVal->setVal(testValTab);
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, paramTest, mkSpBaseVal<size_t>(0, "n"));
+	}
+
+	baseVal->setVal(nullptr);
+	testVal->setVal(nullptr);
+
 	for (int i = 0; i <= 10; ++i)
 	{
 		char paramTestTab[] = "bonjour";
