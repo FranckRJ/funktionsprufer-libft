@@ -5,6 +5,7 @@
 #include "memVal.hpp"
 #include "addrVal.hpp"
 #include "strVal.hpp"
+#include "cstStrVal.hpp"
 #include "cppStrVal.hpp"
 #include "strcmpTest.hpp"
 
@@ -29,18 +30,27 @@ int strcmpTest::launchTest()
 void strcmpTest::processTest()
 {
 #ifdef FT_STRCMP_EXIST
-	spStrVal s1ParamTest = mkSpStrVal(nullptr);
-	spStrVal s2ParamTest = mkSpStrVal(nullptr);
-	std::function<spBaseVal<int>(spStrVal, spStrVal)> baseFunction =
-		[&](spStrVal s1, spStrVal s2)
+	spCstStrVal s1ParamTest = mkSpCstStrVal(nullptr);
+	spCstStrVal s2ParamTest = mkSpCstStrVal(nullptr);
+	std::function<spBaseVal<int>(spCstStrVal, spCstStrVal)> baseFunction =
+		[&](spCstStrVal s1, spCstStrVal s2)
 		{
 			return mkSpBaseVal<int>(strcmp(s1->getVal(), s2->getVal()));
 		};
-	std::function<spBaseVal<int>(spStrVal, spStrVal)> testFunction =
-		[&](spStrVal s1, spStrVal s2)
+	std::function<spBaseVal<int>(spCstStrVal, spCstStrVal)> testFunction =
+		[&](spCstStrVal s1, spCstStrVal s2)
 		{
 			return mkSpBaseVal<int>(ft_strcmp(s1->getVal(), s2->getVal()));
 		};
+
+	if (!dontDoTestThatCrash)
+	{
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(nullptr));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(""));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal("bon"));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(""), mkSpCstStrVal(nullptr));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal("bon"), mkSpCstStrVal(nullptr));
+	}
 
 	{
 		char s1Tab[] = "";

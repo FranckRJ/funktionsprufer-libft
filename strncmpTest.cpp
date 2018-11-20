@@ -5,6 +5,7 @@
 #include "memVal.hpp"
 #include "addrVal.hpp"
 #include "strVal.hpp"
+#include "cstStrVal.hpp"
 #include "cppStrVal.hpp"
 #include "strncmpTest.hpp"
 
@@ -29,18 +30,40 @@ int strncmpTest::launchTest()
 void strncmpTest::processTest()
 {
 #ifdef FT_STRNCMP_EXIST
-	spStrVal s1ParamTest = mkSpStrVal(nullptr);
-	spStrVal s2ParamTest = mkSpStrVal(nullptr);
-	std::function<spBaseVal<int>(spStrVal, spStrVal, spBaseVal<size_t>)> baseFunction =
-		[&](spStrVal s1, spStrVal s2, spBaseVal<size_t> n)
+	spCstStrVal s1ParamTest = mkSpCstStrVal(nullptr);
+	spCstStrVal s2ParamTest = mkSpCstStrVal(nullptr);
+	std::function<spBaseVal<int>(spCstStrVal, spCstStrVal, spBaseVal<size_t>)> baseFunction =
+		[&](spCstStrVal s1, spCstStrVal s2, spBaseVal<size_t> n)
 		{
 			return mkSpBaseVal<int>(strncmp(s1->getVal(), s2->getVal(), n->getVal()));
 		};
-	std::function<spBaseVal<int>(spStrVal, spStrVal, spBaseVal<size_t>)> testFunction =
-		[&](spStrVal s1, spStrVal s2, spBaseVal<size_t> n)
+	std::function<spBaseVal<int>(spCstStrVal, spCstStrVal, spBaseVal<size_t>)> testFunction =
+		[&](spCstStrVal s1, spCstStrVal s2, spBaseVal<size_t> n)
 		{
 			return mkSpBaseVal<int>(ft_strncmp(s1->getVal(), s2->getVal(), n->getVal()));
 		};
+
+	if (!dontDoTestThatCrash)
+	{
+		for (int i = 1; i <= 2; ++i)
+			testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(i));
+		for (int i = 1; i <= 3; ++i)
+			testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(""), mkSpBaseVal<size_t>(i));
+		for (int i = 1; i <= 4; ++i)
+			testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal("bn"), mkSpBaseVal<size_t>(i));
+		for (int i = 1; i <= 3; ++i)
+			testThisFun(baseFunction, testFunction, mkSpCstStrVal(""), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(i));
+		for (int i = 1; i <= 4; ++i)
+			testThisFun(baseFunction, testFunction, mkSpCstStrVal("bn"), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(i));
+	}
+
+	{
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(""), mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal("bn"), mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(""), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal("bn"), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(0));
+	}
 
 	for (int i = 0; i <= 3; ++i)
 	{
