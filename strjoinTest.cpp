@@ -63,15 +63,16 @@ void strjoinTest::processTest()
 								(resTest->getVal() != s1Test->getVal() && resTest->getVal() != s2Test->getVal())), "res != s1 && res != s2")));
 		};
 
-	if (!dontDoTestThatCrash)
 	{
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, s1Test, s2Test);
-		char s1Val[] = "lol";
-		s1Test->setVal(s1Val);
+		s1Test->setVal("lol");
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, s1Test, s2Test);
-		char s2Val[] = "lol";
+		s1Test->setVal("");
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, s1Test, s2Test);
 		s1Test->setVal(nullptr);
-		s2Test->setVal(s2Val);
+		s2Test->setVal("lol");
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, s1Test, s2Test);
+		s2Test->setVal("");
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, s1Test, s2Test);
 	}
 

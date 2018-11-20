@@ -34,7 +34,14 @@ void putnbr_fdTest::processTest()
 		[&](spBaseVal<int> n, spCppStrVal fn)
 		{
 			(void)fn;
-			return mkSpCppStrVal(std::to_string(n->getVal()));
+			if (!(fn->getVal().empty()))
+			{
+				return mkSpCppStrVal(std::to_string(n->getVal()));
+			}
+			else
+			{
+				return mkSpCppStrVal("");
+			}
 		};
 	std::function<spCppStrVal(spBaseVal<int>, spCppStrVal)> testFunction =
 		[&](spBaseVal<int> n, spCppStrVal fn)
@@ -44,9 +51,13 @@ void putnbr_fdTest::processTest()
 			return mkSpCppStrVal(newFile.getFileContent());
 		};
 
+	testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(5), mkSpCppStrVal(""));
+
 	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(0), mkSpCppStrVal(openFile::tmpfileName));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(5), mkSpCppStrVal(openFile::tmpfileName));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(10), mkSpCppStrVal(openFile::tmpfileName));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(105), mkSpCppStrVal(openFile::tmpfileName));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(159), mkSpCppStrVal(openFile::tmpfileName));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(2147483647), mkSpCppStrVal(openFile::tmpfileName));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(2147483646), mkSpCppStrVal(openFile::tmpfileName));

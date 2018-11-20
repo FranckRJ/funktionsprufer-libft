@@ -35,7 +35,7 @@ void putstr_fdTest::processTest()
 		[&](spStrVal s, spCppStrVal fn)
 		{
 			(void)fn;
-			if (s->getVal() != nullptr)
+			if (s->getVal() != nullptr && !(fn->getVal().empty()))
 			{
 				return mkSpCppStrVal(std::string(s->getVal()));
 			}
@@ -52,9 +52,11 @@ void putstr_fdTest::processTest()
 			return mkSpCppStrVal(newFile.getFileContent());
 		};
 
-	if (!dontDoTestThatCrash)
+	testThisFun(baseFunction, testFunction, mkSpStrVal(nullptr), mkSpCppStrVal(openFile::tmpfileName));
+
 	{
-		testThisFun(baseFunction, testFunction, mkSpStrVal(nullptr), mkSpCppStrVal(openFile::tmpfileName));
+		char test[] = "ok";
+		testThisFun(baseFunction, testFunction, mkSpStrVal(test), mkSpCppStrVal(""));
 	}
 
 	{

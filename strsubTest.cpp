@@ -51,10 +51,7 @@ void strsubTest::processTest()
 			return mkSpStrVal(ft_strsub(s->getVal(), start->getVal(), len->getVal()), "", true);
 		};
 
-	if (!dontDoTestThatCrash)
-	{
-		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpBaseVal<unsigned int>(0), mkSpBaseVal<size_t>(0));
-	}
+	testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpBaseVal<unsigned int>(0), mkSpBaseVal<size_t>(0));
 
 	{
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(""), mkSpBaseVal<unsigned int>(0), mkSpBaseVal<size_t>(0));

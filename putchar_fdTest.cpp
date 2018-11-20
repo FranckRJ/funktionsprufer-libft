@@ -35,7 +35,14 @@ void putchar_fdTest::processTest()
 		[&](spBaseVal<char> c, spCppStrVal fn)
 		{
 			(void)fn;
-			return mkSpCppStrVal(std::string(1, c->getVal()));
+			if (!(fn->getVal().empty()))
+			{
+				return mkSpCppStrVal(std::string(1, c->getVal()));
+			}
+			else
+			{
+				return mkSpCppStrVal("");
+			}
 		};
 	std::function<spCppStrVal(spBaseVal<char>, spCppStrVal)> testFunction =
 		[&](spBaseVal<char> c, spCppStrVal fn)
@@ -44,6 +51,8 @@ void putchar_fdTest::processTest()
 			ft_putchar_fd(c->getVal(), newFile.getFileDesc());
 			return mkSpCppStrVal(newFile.getFileContent());
 		};
+
+	testThisFun(baseFunction, testFunction, mkSpBaseVal<char>('a'), mkSpCppStrVal(""));
 
 	for (int letter = -300; letter <= 300; ++letter)
 	{

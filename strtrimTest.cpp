@@ -84,10 +84,7 @@ void strtrimTest::processTest()
 								(resultTest->getVal() != paramTest->getVal())), "result != s")));
 		};
 
-	if (!dontDoTestThatCrash)
-	{
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, paramTest);
-	}
+	testThisFunAndVals(baseFunction, testFunction, testValsFun, paramTest);
 
 	{
 		char testVal[] = "";

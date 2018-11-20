@@ -40,10 +40,7 @@ void putstrTest::processTest()
 		return mkSpCppStrVal(openFile::getTmpfileContent());
 	};
 
-	if (!dontDoTestThatCrash)
-	{
-		testThisFun(baseNullFunction, testFunction, mkSpStrVal(nullptr));
-	}
+	testThisFun(baseNullFunction, testFunction, mkSpStrVal(nullptr));
 
 	{
 		char test[] = "Salut";

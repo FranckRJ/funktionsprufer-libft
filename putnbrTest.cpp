@@ -49,6 +49,8 @@ void putnbrTest::processTest()
 	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(0));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(5));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(10));
+		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(105));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(159));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(2147483647));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<int>(2147483646));

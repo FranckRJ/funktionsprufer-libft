@@ -76,12 +76,10 @@ void strsplitTest::processTest()
 			return mkSpStrTabVal(ft_strsplit(s->getVal(), c->getVal()), -1, "", true);
 		};
 
-	if (!dontDoTestThatCrash)
-	{
-		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpBaseVal<char>('a'));
-	}
+	testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpBaseVal<char>('a'));
 
 	testThisFun(baseFunction, testFunction, mkSpCstStrVal(""), mkSpBaseVal<char>(','));
+	testThisFun(baseFunction, testFunction, mkSpCstStrVal("salut bonjour"), mkSpBaseVal<char>(','));
 	testThisFun(baseFunction, testFunction, mkSpCstStrVal("salut,ok"), mkSpBaseVal<char>(','));
 	testThisFun(baseFunction, testFunction, mkSpCstStrVal("salut,,,,,ok"), mkSpBaseVal<char>(','));
 	testThisFun(baseFunction, testFunction, mkSpCstStrVal(",salut"), mkSpBaseVal<char>(','));
