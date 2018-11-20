@@ -33,7 +33,11 @@ void strnequTest::processTest()
 	std::function<spBaseVal<int>(spCstStrVal, spCstStrVal, spBaseVal<size_t>)> baseFunction =
 		[&](spCstStrVal s1, spCstStrVal s2, spBaseVal<size_t> n)
 		{
-			if (s1->getVal() == nullptr || s2->getVal() == nullptr)
+			if (n->getVal() == 0)
+			{
+				return mkSpBaseVal<int>(1);
+			}
+			else if (s1->getVal() == nullptr || s2->getVal() == nullptr)
 			{
 				return mkSpBaseVal<int>(s1->getVal() == s2->getVal() ? 1 : 0);
 			}
@@ -49,14 +53,17 @@ void strnequTest::processTest()
 			return mkSpBaseVal<int>(ft_strnequ(s1->getVal(), s2->getVal(), n->getVal()));
 		};
 
-	if (!dontDoTestThatCrash)
 	{
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(0));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(1));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal("salut"), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(0));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal("salut"), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(1));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(""), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(""), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(1));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal("salut"), mkSpBaseVal<size_t>(0));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal("salut"), mkSpBaseVal<size_t>(1));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(""), mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(""), mkSpBaseVal<size_t>(1));
 	}
 
 	{
