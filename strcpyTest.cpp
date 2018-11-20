@@ -47,6 +47,23 @@ void strcpyTest::processTest()
 	auto testValsFun =
 		[&](bool printRes) {return compareVals(printRes, std::pair<spStrVal, spStrVal>(baseVal, testVal));};
 
+	if (!dontDoTestThatCrash)
+	{
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, paramTest);
+		char paramTestTab[] = "bonjour";
+		paramTest->setVal(paramTestTab);
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, paramTest);
+		char baseValTab[] = ".............";
+		char testValTab[] = ".............";
+		paramTest->setVal(nullptr);
+		baseVal->setVal(baseValTab);
+		testVal->setVal(testValTab);
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, paramTest);
+	}
+
+	baseVal->setVal(nullptr);
+	testVal->setVal(nullptr);
+
 	{
 		char paramTestTab[] = "bonjour";
 		char baseValTab[15];

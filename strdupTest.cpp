@@ -52,6 +52,11 @@ void strdupTest::processTest()
 						mkSpBaseVal<bool>(testRet->getVal() != valToTest->getVal(), "ret != s1")));
 		};
 
+	if (!dontDoTestThatCrash)
+	{
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, valToTest);
+	}
+
 	{
 		char testVal[] = "bonjour";
 		valToTest->setVal(testVal);

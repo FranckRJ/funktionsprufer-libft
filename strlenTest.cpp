@@ -38,6 +38,11 @@ void strlenTest::processTest()
 			return mkSpBaseVal<size_t>(ft_strlen(s->getVal()));
 		};
 
+	if (!dontDoTestThatCrash)
+	{
+		testThisFun(baseFunction, testFunction, valToTest);
+	}
+
 	{
 		char testVal[] = "bonjour";
 		valToTest->setVal(testVal);
