@@ -42,6 +42,33 @@ void strstrTest::processTest()
 			return mkSpAddrVal(ft_strstr(haystack->getVal(), needle->getVal()), haystack->getVal());
 		};
 
+	if (!dontDoTestThatCrash)
+	{
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest);
+		char hayTab[] = "bonjour";
+		hayParamTest->setVal(hayTab);
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest);
+		char hayTab2[] = "";
+		hayParamTest->setVal(hayTab2);
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest);
+		char neeTab[] = "bon";
+		hayParamTest->setVal(nullptr);
+		neeParamTest->setVal(neeTab);
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest);
+	}
+
+	hayParamTest->setVal(nullptr);
+	neeParamTest->setVal(nullptr);
+
+	{
+		char neeTab[] = "";
+		neeParamTest->setVal(neeTab);
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest);
+	}
+
+	hayParamTest->setVal(nullptr);
+	neeParamTest->setVal(nullptr);
+
 	{
 		char hayTab[] = "bononojour salut";
 		char neeTab[] = "bon";

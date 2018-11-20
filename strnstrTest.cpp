@@ -42,6 +42,40 @@ void strnstrTest::processTest()
 			return mkSpAddrVal(ft_strnstr(haystack->getVal(), needle->getVal(), len->getVal()), haystack->getVal());
 		};
 
+	if (!dontDoTestThatCrash)
+	{
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest, mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest, mkSpBaseVal<size_t>(5));
+		char hayTab[] = "bonjour";
+		hayParamTest->setVal(hayTab);
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest, mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest, mkSpBaseVal<size_t>(5));
+		char hayTab2[] = "";
+		hayParamTest->setVal(hayTab2);
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest, mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest, mkSpBaseVal<size_t>(5));
+		char neeTab[] = "bon";
+		hayParamTest->setVal(nullptr);
+		neeParamTest->setVal(neeTab);
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest, mkSpBaseVal<size_t>(5));
+	}
+
+	hayParamTest->setVal(nullptr);
+	neeParamTest->setVal(nullptr);
+
+	{
+		char neeTab[] = "bon";
+		neeParamTest->setVal(neeTab);
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest, mkSpBaseVal<size_t>(0));
+		char neeTab2[] = "";
+		neeParamTest->setVal(neeTab2);
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest, mkSpBaseVal<size_t>(0));
+		testThisFun(baseFunction, testFunction, hayParamTest, neeParamTest, mkSpBaseVal<size_t>(5));
+	}
+
+	hayParamTest->setVal(nullptr);
+	neeParamTest->setVal(nullptr);
+
 	for (int i = 0; i <= 5; ++i)
 	{
 		char hayTab[] = "bononojour salut";
