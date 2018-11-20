@@ -36,9 +36,9 @@ private:
 	template <class Tptr>
 	std::shared_ptr<Tptr> buildPtrValOfPtr(std::shared_ptr<Tptr> thisPtr);
 	template <class Tfstpar>
-	void printParamsVal(Tfstpar param);
+	std::string paramsToString(Tfstpar param);
 	template <class Tfstpar, class... Tothpar>
-	void printParamsVal(Tfstpar fstParam, Tothpar... othParams);
+	std::string paramsToString(Tfstpar fstParam, Tothpar... othParams);
 	void msgTestBegin(std::string funName);
 	void msgTestEnd();
 protected:

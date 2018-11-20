@@ -29,6 +29,7 @@ void absTest::testThisFun(std::function<Tret(Tpar...)> baseFun,
 	Tret baseRet;
 	Tret testRet;
 	bool success;
+	std::string strForParams = (isVerbose ? paramsToString(params...) : "");
 
 	baseRet = buildPtrValOfPtr(baseRet);
 	testRet = buildPtrValOfPtr(testRet);
@@ -49,9 +50,7 @@ void absTest::testThisFun(std::function<Tret(Tpar...)> baseFun,
 
 	if (isVerbose && (!showOnlyErrors || (showOnlyErrors && !success)))
 	{
-		std::cout << "Parametre : ";
-		printParamsVal(params...);
-		std::cout << std::endl;
+		std::cout << "Parametre : " << strForParams << std::endl;
 	}
 
 	if (!success)
@@ -85,6 +84,7 @@ void absTest::testThisFunAndVals(std::function<Tret(Tpar...)> baseFun,
 	Tret testRet;
 	bool funAndValsSuccess;
 	bool funSuccess;
+	std::string strForParams = (isVerbose ? paramsToString(params...) : "");
 
 	baseRet = buildPtrValOfPtr(baseRet);
 	testRet = buildPtrValOfPtr(testRet);
@@ -106,9 +106,7 @@ void absTest::testThisFunAndVals(std::function<Tret(Tpar...)> baseFun,
 
 	if (isVerbose && (!showOnlyErrors || (showOnlyErrors && !funAndValsSuccess)))
 	{
-		std::cout << "Parametre : ";
-		printParamsVal(params...);
-		std::cout << std::endl;
+		std::cout << "Parametre : " << strForParams << std::endl;
 	}
 
 	if (!funAndValsSuccess)
@@ -176,19 +174,23 @@ std::shared_ptr<Tptr> absTest::buildPtrValOfPtr(std::shared_ptr<Tptr> thisPtr)
 }
 
 template <class Tfstpar>
-void absTest::printParamsVal(Tfstpar param)
+std::string absTest::paramsToString(Tfstpar param)
 {
+	std::string newStr;
 	if (!param->getName().empty())
 	{
-		std::cout << param->getName() << "=";
+		newStr += param->getName() + "=";
 	}
-	std::cout << "\"" << param->valToString() << "\"";
+	newStr += "\"" + param->valToString() + "\"";
+	return newStr;
 }
 
 template <class Tfstpar, class... Tothpar>
-void absTest::printParamsVal(Tfstpar fstParam, Tothpar... othParams)
+std::string absTest::paramsToString(Tfstpar fstParam, Tothpar... othParams)
 {
-	printParamsVal(fstParam);
-	std::cout << ", ";
-	printParamsVal(othParams...);
+	std::string newStr;
+	newStr += paramsToString(fstParam);
+	newStr += ", ";
+	newStr += paramsToString(othParams...);
+	return newStr;
 }
