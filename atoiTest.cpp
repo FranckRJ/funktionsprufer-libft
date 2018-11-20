@@ -41,6 +41,11 @@ void atoiTest::processTest()
 			return mkSpBaseVal<int>(ft_atoi(str->getVal()));
 		};
 
+	if (!dontDoTestThatCrash)
+	{
+		testThisFun(baseFunction, testFunction, paramTest);
+	}
+
 	{
 		char paramTab[] = "";
 		paramTest->setVal(paramTab);
