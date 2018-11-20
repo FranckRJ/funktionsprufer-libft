@@ -41,6 +41,11 @@ void strrchrTest::processTest()
 			return mkSpAddrVal(ft_strrchr(s->getVal(), c->getVal()), s->getVal());
 		};
 
+	if (!dontDoTestThatCrash)
+	{
+		testThisFun(baseFunction, testFunction, paramTest, mkSpBaseVal<int>('a'));
+	}
+
 	{
 		char paramTab[] = "bonjour";
 		paramTest->setVal(paramTab);
