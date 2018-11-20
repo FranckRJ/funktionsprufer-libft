@@ -60,14 +60,10 @@ void strnewTest::processTest()
 			return mkSpMemVal(ft_strnew(size->getVal()), size->getVal() + 1, "", true);
 		};
 
-	if (!dontDoTestThatCrash)
 	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(-1));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(-2));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(-3));
-	}
-
-	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(0));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(1));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(50));

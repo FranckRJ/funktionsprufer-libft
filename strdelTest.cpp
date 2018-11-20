@@ -73,10 +73,7 @@ void strdelTest::processTest()
 		[&](bool printRes) {return compareVals(printRes,
 				std::pair<spBaseVal<bool>, spBaseVal<bool>>(mkSpBaseVal<bool>(true, "pas crash"), mkSpBaseVal<bool>(true, "pas crash")));};
 
-	if (!dontDoTestThatCrash)
-	{
-		testThisFunAndVals(baseNullFunction, testNullFunction, testNullValsFun, baseAp);
-	}
+	testThisFunAndVals(baseNullFunction, testNullFunction, testNullValsFun, baseAp);
 
 	{
 		baseAp->setVal(nullptr);

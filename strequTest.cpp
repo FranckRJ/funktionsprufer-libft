@@ -48,11 +48,12 @@ void strequTest::processTest()
 			return mkSpBaseVal<int>(ft_strequ(s1->getVal(), s2->getVal()));
 		};
 
-	if (!dontDoTestThatCrash)
 	{
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(nullptr));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal("salut"), mkSpCstStrVal(nullptr));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(""), mkSpCstStrVal(nullptr));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal("salut"));
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(""));
 	}
 
 	{

@@ -50,13 +50,9 @@ void memallocTest::processTest()
 			return mkSpMemVal(ft_memalloc(size->getVal()), size->getVal(), "", true);
 		};
 
-	if (!dontDoTestThatCrash)
 	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(-1));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(-2));
-	}
-
-	{
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(0));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(1));
 		testThisFun(baseFunction, testFunction, mkSpBaseVal<size_t>(50));
