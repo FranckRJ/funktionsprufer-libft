@@ -77,6 +77,7 @@ int main(int argc, char **argv)
 {
 	int realArgc = argc - 1;
 	int errCount = 0;
+	int nbOfFunWithError = 0;
 	int funNumberThatDontExist = 0;
 	std::map<std::string, std::function<int()>> testList;
 	std::list<std::string> removedTests;
@@ -181,9 +182,10 @@ int main(int argc, char **argv)
 				{
 					funNumberThatDontExist += 1;
 				}
-				else
+				else if (tmpResult > 0)
 				{
 					errCount += tmpResult;
+					++nbOfFunWithError;
 				}
 			}
 		}
@@ -205,9 +207,10 @@ int main(int argc, char **argv)
 				{
 					funNumberThatDontExist += 1;
 				}
-				else
+				else if (tmpResult > 0)
 				{
 					errCount += tmpResult;
+					++nbOfFunWithError;
 				}
 			}
 			else if (strArg[0] != '-')
@@ -221,12 +224,14 @@ int main(int argc, char **argv)
 	if (errCount == 0)
 	{
 		std::cout << colors::green();
+		std::cout << "Erreurs : 0.";
 	}
 	else
 	{
 		std::cout << colors::red();
+		std::cout << "Erreurs : " << errCount << ". Fonctions concernees : " << nbOfFunWithError << ".";
 	}
-	std::cout << "Erreurs : " << errCount << colors::reset() << std::endl;
+	std::cout << colors::reset() << std::endl;
 	if (funNumberThatDontExist > 0)
 	{
 		std::cout << "Fonctions non testees : " << funNumberThatDontExist << std::endl;
