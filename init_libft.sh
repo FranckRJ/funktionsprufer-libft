@@ -36,12 +36,16 @@ rm libft.h
 mv tmplibft.h libft.h
 }
 
-function del_new_keyword_libfth
+function del_cpp_keyword_libfth
 {
 	sed -i "" "s/ new,/ newPtr,/g" libft.h
 	sed -i "" "s/*new,/*newPtr,/g" libft.h
 	sed -i "" "s/ new)/ newPtr)/g" libft.h
 	sed -i "" "s/*new)/*newPtr)/g" libft.h
+	sed -i "" "s/ delete,/ deleteVar,/g" libft.h
+	sed -i "" "s/*delete,/*deleteVar,/g" libft.h
+	sed -i "" "s/ delete)/ deleteVar)/g" libft.h
+	sed -i "" "s/*delete)/*deleteVar)/g" libft.h
 }
 
 function make_define_header
@@ -57,6 +61,9 @@ EOM
 
 echo "$START_DEF" > funExistDefines.hpp
 echo "$(cat libft.h | sed -n "s/.*\(ft_[^\\(]*\).*/#define \1_EXIST/p" | awk '{print toupper($0)}' | sed "s/#DEFINE/#define/g")" >> funExistDefines.hpp
+if [[ $(cat libft.h) == *"t_list"* ]]; then
+	echo "#define TYPE_LST_EXIST" >> funExistDefines.hpp
+fi
 echo "$END_DEF" >> funExistDefines.hpp
 }
 
@@ -99,7 +106,7 @@ done
 if [[ "$getLibftFiles" == "true" ]]; then
 	cp "${libftPath}/libft.h" "${libftPath}/libft.a" .
 	add_extern_c_libfth
-	del_new_keyword_libfth
+	del_cpp_keyword_libfth
 fi
 if [[ "$genDefineHeader" == "true" ]]; then
 	make_define_header
