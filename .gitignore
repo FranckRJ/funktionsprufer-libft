@@ -1,0 +1,9 @@
+*.o
+libft.a
+libft.h
+test-libft
+tmpfile.txt
+.Makefile.dep
+add_constrcut_cpp.sh
+add_constrcut_hpp.sh
+funExistDefines.hpp
