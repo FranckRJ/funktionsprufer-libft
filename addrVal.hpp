@@ -22,14 +22,11 @@ public:
 	addrVal(void *newVal = nullptr, void *newBaseVal = nullptr, std::string newName = "", bool newNeedToFree = false);
 	~addrVal();
 	bool equalsSameType(spAbsVal<void*> cmpVal);
-	template <class T>
-	void setVal(T newVal);
+	void setVal(void *newVal);
 	std::string valToString();
 private:
 	bool needToFree;
 	void *baseVal;
 };
-
-#include "addrVal.tpp"
 
 #endif

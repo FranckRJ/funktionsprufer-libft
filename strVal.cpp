@@ -39,6 +39,15 @@ bool strVal::equalsSameType(spAbsVal<char*> cmpVal)
 	}
 }
 
+void strVal::setVal(char *newVal)
+{
+	if (needToFree && getVal() != nullptr)
+	{
+		delete[] getVal();
+	}
+	absVal::setVal(newVal);
+}
+
 std::string strVal::valToString()
 {
 	if (getVal() != nullptr)

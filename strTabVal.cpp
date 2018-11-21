@@ -54,6 +54,15 @@ bool strTabVal::equalsSameType(spAbsVal<char**> cmpVal)
 	}
 }
 
+void strTabVal::setVal(char **newVal)
+{
+	if (needToFree)
+	{
+		deleteCurrentTab();
+	}
+	absVal::setVal(newVal);
+}
+
 std::string strTabVal::valToString()
 {
 	if (getVal() != nullptr)

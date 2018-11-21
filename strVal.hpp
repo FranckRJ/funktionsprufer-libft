@@ -22,13 +22,10 @@ public:
 	strVal(char *newVal = nullptr, std::string newName = "", bool newNeedToFree = false);
 	~strVal();
 	bool equalsSameType(spAbsVal<char*> cmpVal);
-	template <class T>
-	void setVal(T newVal);
+	void setVal(char *newVal);
 	std::string valToString();
 private:
 	bool needToFree;
 };
-
-#include "strVal.tpp"
 
 #endif

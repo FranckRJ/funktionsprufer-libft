@@ -40,6 +40,15 @@ size_t memVal::getLen()
 	return len;
 }
 
+void memVal::setVal(void *newVal)
+{
+	if (needToFree && getVal() != nullptr)
+	{
+		delete[] static_cast<char*>(getVal());
+	}
+	absVal::setVal(newVal);
+}
+
 void memVal::setLen(size_t newLen)
 {
 	len = newLen;

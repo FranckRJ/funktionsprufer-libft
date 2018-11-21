@@ -22,8 +22,7 @@ public:
 	strTabVal(char **newVal = nullptr, int newTabSize = -1, std::string newName = "", bool newNeedToFree = false);
 	~strTabVal();
 	bool equalsSameType(spAbsVal<char**> cmpVal);
-	template <class T>
-	void setVal(T newVal);
+	void setVal(char **newVal);
 	std::string valToString();
 private:
 	void deleteCurrentTab();
@@ -32,7 +31,5 @@ private:
 	int tabSize;
 	bool needToFree;
 };
-
-#include "strTabVal.tpp"
 
 #endif
