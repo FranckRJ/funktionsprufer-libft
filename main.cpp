@@ -60,6 +60,7 @@
 #include "putnbr_fdTest.hpp"
 #include "lstnewTest.hpp"
 #include "lstdeloneTest.hpp"
+#include "lstdelTest.hpp"
 
 static std::string HELP_INFOS =
 R"str(DESCRIPTION:
@@ -141,6 +142,7 @@ int main(int argc, char **argv)
 	testList.emplace("ft_putnbr_fd", std::bind(putnbr_fdTest::launchTest));
 	testList.emplace("ft_lstnew", std::bind(lstnewTest::launchTest));
 	testList.emplace("ft_lstdelone", std::bind(lstdeloneTest::launchTest));
+	testList.emplace("ft_lstdel", std::bind(lstdelTest::launchTest));
 
 	for (int i = 1; i < argc; ++i)
 	{
