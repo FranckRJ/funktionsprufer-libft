@@ -1,0 +1,1 @@
+Un code dégueulasse, une interface bancale, mais des tests plus ou moins rigoureux.
