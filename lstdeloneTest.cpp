@@ -76,6 +76,7 @@ void lstdeloneTest::processTest()
 	{
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, mkSpCstStrVal(funProt, "del"));
 	}
+	if (!dontDoUnclearTest)
 	{
 		t_list *newLstBase = new t_list;
 		newLstBase->content = (void*)(new const char[10]());
@@ -89,6 +90,7 @@ void lstdeloneTest::processTest()
 		testVal->setVal(newLstTest);
 		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseVal, mkSpCstStrVal(nullptr, "del"));
 	}
+	if (!dontDoUnclearTest)
 	{
 		t_list *newLstBase = new t_list;
 		newLstBase->content = nullptr;

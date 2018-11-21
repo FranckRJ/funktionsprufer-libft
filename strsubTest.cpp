@@ -32,7 +32,16 @@ void strsubTest::processTest()
 		{
 			if (s->getVal() == nullptr)
 			{
-				return mkSpStrVal(nullptr);
+				if (len->getVal() == 0)
+				{
+					char *cstr = new char[1];
+					cstr[0] = '\0';
+					return mkSpStrVal(cstr, "", true);
+				}
+				else
+				{
+					return mkSpStrVal(nullptr);
+				}
 			}
 			else
 			{
@@ -48,7 +57,10 @@ void strsubTest::processTest()
 			return mkSpStrVal(ft_strsub(s->getVal(), start->getVal(), len->getVal()), "", true);
 		};
 
-	testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpBaseVal<unsigned int>(0), mkSpBaseVal<size_t>(0));
+	if (!dontDoUnclearTest)
+	{
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpBaseVal<unsigned int>(0), mkSpBaseVal<size_t>(0));
+	}
 
 	{
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(""), mkSpBaseVal<unsigned int>(0), mkSpBaseVal<size_t>(0));

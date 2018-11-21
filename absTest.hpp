@@ -12,6 +12,7 @@ public:
 	static bool isVerbose;
 	static bool showOnlyErrors;
 	static bool dontDoTestThatCrash;
+	static bool dontDoUnclearTest;
 	virtual ~absTest() = default;
 protected:
 	void startTest(std::string funName);

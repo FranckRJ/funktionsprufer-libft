@@ -6,6 +6,7 @@
 bool absTest::isVerbose = false;
 bool absTest::showOnlyErrors = false;
 bool absTest::dontDoTestThatCrash = false;
+bool absTest::dontDoUnclearTest = false;
 
 void absTest::startTest(std::string funName)
 {

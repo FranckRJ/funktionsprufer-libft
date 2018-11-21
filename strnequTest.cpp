@@ -49,9 +49,13 @@ void strnequTest::processTest()
 			return mkSpBaseVal<int>(ft_strnequ(s1->getVal(), s2->getVal(), n->getVal()));
 		};
 
+	if (!dontDoUnclearTest)
+	{
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(1));
+	}
+
 	{
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(0));
-		testThisFun(baseFunction, testFunction, mkSpCstStrVal(nullptr), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(1));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal("salut"), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(0));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal("salut"), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(1));
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(""), mkSpCstStrVal(nullptr), mkSpBaseVal<size_t>(0));

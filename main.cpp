@@ -71,7 +71,8 @@ LISTE DES COMMANDES:
                           seront testees.
 -r<nom_de_fonction>       Desactive les tests de cette fonction en mode non-verbeux.
 --erronly                 Affiche uniquement les tests echoues lors du mode verbeux.
---nocrashtest             Ne teste pas les fonctions qui doivent crasher.
+--nocrashtest             N'effectue pas les tests qui doivent crasher.
+--nouncleartest           N'effectue pas les tests dont le resultat n'est pas clair.
 --nocolor                 Desactive l'affichage avec des couleurs.
 --help                    Affiche cette page d'aide.)str";
 
@@ -160,6 +161,10 @@ int main(int argc, char **argv)
 			else if (curArg == "--nocrashtest")
 			{
 				absTest::dontDoTestThatCrash = true;
+			}
+			else if (curArg == "--nouncleartest")
+			{
+				absTest::dontDoUnclearTest = true;
 			}
 			else if (curArg == "--nocolor")
 			{
