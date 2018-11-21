@@ -24,6 +24,7 @@ public:
 	bool getIsVoidVal();
 	bool getIsCrashVal();
 	virtual void setVal(T newVal);
+	void setName(std::string newName);
 	void setIsVoidVal(bool newVal);
 	void setIsCrashVal(bool newVal);
 	std::string valToStringOrCrash();

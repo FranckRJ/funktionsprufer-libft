@@ -64,6 +64,12 @@ void absVal<T>::setVal(T newVal)
 }
 
 template <class T>
+void absVal<T>::setName(std::string newName)
+{
+	name = newName;
+}
+
+template <class T>
 void absVal<T>::setIsVoidVal(bool newVal)
 {
 	isVoidVal = newVal;

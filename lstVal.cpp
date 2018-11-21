@@ -20,7 +20,7 @@ bool lstVal::equalsSameType(spAbsVal<t_list*> cmpVal)
 {
 	lstVal *ptrCmpVal = dynamic_cast<lstVal*>(cmpVal.get());
 
-	if (ptrCmpVal != nullptr)
+	if (ptrCmpVal != nullptr && getIsVoidVal() == ptrCmpVal->getIsVoidVal())
 	{
 		t_list *lst = getVal();
 		t_list *lstCmp = ptrCmpVal->getVal();
@@ -50,28 +50,35 @@ void lstVal::setVal(t_list *newVal)
 
 std::string lstVal::valToString()
 {
-	std::string newStr;
-	t_list *lst = getVal();
-
-	newStr += "[";
-	while (lst != nullptr)
+	if (getIsVoidVal())
 	{
-		if (lst->content == nullptr)
-		{
-			newStr += "NULL";
-		}
-		else
-		{
-			newStr += "\"" + std::string(((const char*)lst->content)) + "\"";
-		}
-		if (lst->next != nullptr)
-		{
-			newStr += ", ";
-		}
-		lst = lst->next;
+		return "NULL";
 	}
-	newStr += "]";
-	return newStr;
+	else
+	{
+		std::string newStr;
+		t_list *lst = getVal();
+
+		newStr += "[";
+		while (lst != nullptr)
+		{
+			if (lst->content == nullptr)
+			{
+				newStr += "NULL";
+			}
+			else
+			{
+				newStr += "\"" + std::string(((const char*)lst->content)) + "\"";
+			}
+			if (lst->next != nullptr)
+			{
+				newStr += ", ";
+			}
+			lst = lst->next;
+		}
+		newStr += "]";
+		return newStr;
+	}
 }
 
 bool lstVal::lstElemEqualAnother(t_list *e1, t_list *e2)
