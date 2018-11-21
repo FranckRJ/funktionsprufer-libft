@@ -1,5 +1,4 @@
 #include <functional>
-#include <ctype.h>
 
 #include "libft.h"
 #include "baseVal.hpp"

@@ -2,10 +2,7 @@
 
 #include "libft.h"
 #include "baseVal.hpp"
-#include "memVal.hpp"
-#include "addrVal.hpp"
 #include "strVal.hpp"
-#include "cppStrVal.hpp"
 #include "itoaTest.hpp"
 
 itoaTest::itoaTest()

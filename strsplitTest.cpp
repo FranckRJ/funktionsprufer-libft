@@ -3,9 +3,6 @@
 
 #include "libft.h"
 #include "baseVal.hpp"
-#include "memVal.hpp"
-#include "addrVal.hpp"
-#include "strVal.hpp"
 #include "strTabVal.hpp"
 #include "cstStrVal.hpp"
 #include "strsplitTest.hpp"

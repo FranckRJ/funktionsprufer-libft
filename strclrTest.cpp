@@ -2,11 +2,7 @@
 
 #include "libft.h"
 #include "voidVal.hpp"
-#include "baseVal.hpp"
 #include "memVal.hpp"
-#include "addrVal.hpp"
-#include "strVal.hpp"
-#include "cppStrVal.hpp"
 #include "strclrTest.hpp"
 
 strclrTest::strclrTest()

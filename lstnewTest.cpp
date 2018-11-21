@@ -2,8 +2,6 @@
 
 #include "libft.h"
 #include "baseVal.hpp"
-#include "memVal.hpp"
-#include "addrVal.hpp"
 #include "cstStrVal.hpp"
 #include "lstVal.hpp"
 #include "lstnewTest.hpp"

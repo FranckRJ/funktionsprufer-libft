@@ -1,6 +1,4 @@
 #include <functional>
-#include <utility>
-#include <string.h>
 
 #include "libft.h"
 #include "baseVal.hpp"

@@ -1,11 +1,7 @@
 #include <functional>
 
 #include "libft.h"
-#include "baseVal.hpp"
-#include "memVal.hpp"
-#include "addrVal.hpp"
 #include "strVal.hpp"
-#include "cppStrVal.hpp"
 #include "strmapTest.hpp"
 
 #ifdef FT_STRMAP_EXIST

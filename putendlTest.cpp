@@ -3,7 +3,6 @@
 #include "libft.h"
 #include "openFile.hpp"
 #include "cppStrVal.hpp"
-#include "baseVal.hpp"
 #include "strVal.hpp"
 #include "stdOutputGetter.hpp"
 #include "putendlTest.hpp"
