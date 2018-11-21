@@ -1,5 +1,6 @@
 getLibftFiles="true"
 genDefineHeader="true"
+makeTests="true"
 libftPath="../libft"
 libftPathIsCustom="false"
 
@@ -14,6 +15,7 @@ LISTE DES COMMANDES:
                           Ne peut etre specifie qu'une seule fois, autrement une erreur se produit.
 --nogetlibft              Ne recupere pas les fichiers libft.a / libft.h.
 --nogendefh               Ne genere pas le header contenant les definitions d'existance des fonctions.
+--nomake                  N'execute pas make a la fin du script.
 -h / --help               Affiche cette page d'aide.
 EOM
 
@@ -73,6 +75,8 @@ for param in "$@"; do
 			getLibftFiles="false"
 		elif [[ "$param" == "--nogendefh" ]]; then
 			genDefineHeader="false"
+		elif [[ "$param" == "--nomake" ]]; then
+			makeTests="false"
 		elif [[ "$param" == "--help" ]]; then
 			print_help
 			exit 0
@@ -110,4 +114,7 @@ if [[ "$getLibftFiles" == "true" ]]; then
 fi
 if [[ "$genDefineHeader" == "true" ]]; then
 	make_define_header
+fi
+if [[ "$makeTests" == "true" ]]; then
+	make -j4
 fi
