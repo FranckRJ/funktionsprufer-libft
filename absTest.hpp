@@ -18,8 +18,11 @@ protected:
 	void startTest(std::string funName);
 	virtual void processTest() = 0;
 	template <class Tret, class... Tpar>
-	bool crashTestThisFun(std::function<Tret(Tpar...)> funToTest,
-						  Tpar... params);
+	void crashTestTheseFun(std::function<Tret(Tpar...)> baseFunToTest,
+						   std::function<Tret(Tpar...)> testFunToTest,
+						   Tret *baseRetToSet,
+						   Tret *testRetToSet,
+						   Tpar... params);
 	template <class Tret, class... Tpar>
 	void testThisFun(std::function<Tret(Tpar...)> baseFun,
 					 std::function<Tret(Tpar...)> testFun,

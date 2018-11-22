@@ -4,21 +4,30 @@
 #include "colors.hpp"
 
 template <class Tret, class... Tpar>
-bool absTest::crashTestThisFun(std::function<Tret(Tpar...)> funToTest,
-							   Tpar... params)
+void absTest::crashTestTheseFun(std::function<Tret(Tpar...)> baseFunToTest,
+								std::function<Tret(Tpar...)> testFunToTest,
+								Tret *baseRetToSet,
+								Tret *testRetToSet,
+								Tpar... params)
 {
-	pid_t childPid = 0;
-	int childStatus = 0;
-	if ((childPid = fork()) == 0)
+	pid_t baseChildPid = 0;
+	pid_t testChildPid = 0;
+	int baseChildStatus = 0;
+	int testChildStatus = 0;
+	if ((baseChildPid = fork()) == 0)
 	{
-		funToTest(params...);
+		baseFunToTest(params...);
 		exit(0);
 	}
-	else
+	if ((testChildPid = fork()) == 0)
 	{
-		waitpid(childPid, &childStatus, 0);
+		testFunToTest(params...);
+		exit(0);
 	}
-	return childStatus != 0;
+	waitpid(baseChildPid, &baseChildStatus, 0);
+	waitpid(testChildPid, &testChildStatus, 0);
+	(*baseRetToSet)->setIsCrashVal(baseChildStatus != 0);
+	(*testRetToSet)->setIsCrashVal(testChildStatus != 0);
 }
 
 template <class Tret, class... Tpar>
@@ -34,8 +43,7 @@ void absTest::testThisFun(std::function<Tret(Tpar...)> baseFun,
 	baseRet = buildPtrValOfPtr(baseRet);
 	testRet = buildPtrValOfPtr(testRet);
 
-	baseRet->setIsCrashVal(crashTestThisFun(baseFun, params...));
-	testRet->setIsCrashVal(crashTestThisFun(testFun, params...));
+	crashTestTheseFun(baseFun, testFun, &baseRet, &testRet, params...);
 
 	if (!(baseRet->getIsCrashVal()))
 	{
@@ -89,8 +97,7 @@ void absTest::testThisFunAndVals(std::function<Tret(Tpar...)> baseFun,
 	baseRet = buildPtrValOfPtr(baseRet);
 	testRet = buildPtrValOfPtr(testRet);
 
-	baseRet->setIsCrashVal(crashTestThisFun(baseFun, params...));
-	testRet->setIsCrashVal(crashTestThisFun(testFun, params...));
+	crashTestTheseFun(baseFun, testFun, &baseRet, &testRet, params...);
 
 	if (!(baseRet->getIsCrashVal()))
 	{
