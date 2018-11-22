@@ -62,6 +62,7 @@
 #include "lstdeloneTest.hpp"
 #include "lstdelTest.hpp"
 #include "lstaddTest.hpp"
+#include "lstiterTest.hpp"
 
 static std::string HELP_INFOS =
 R"str(DESCRIPTION:
@@ -145,6 +146,7 @@ int main(int argc, char **argv)
 	testList.emplace("ft_lstdelone", std::bind(lstdeloneTest::launchTest));
 	testList.emplace("ft_lstdel", std::bind(lstdelTest::launchTest));
 	testList.emplace("ft_lstadd", std::bind(lstaddTest::launchTest));
+	testList.emplace("ft_lstiter", std::bind(lstiterTest::launchTest));
 
 	for (int i = 1; i < argc; ++i)
 	{
