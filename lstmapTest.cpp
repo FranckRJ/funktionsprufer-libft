@@ -1,93 +1,123 @@
 #include <functional>
 
 #include "libft.h"
-#include "voidVal.hpp"
+#include "baseVal.hpp"
 #include "lstVal.hpp"
 #include "cstStrVal.hpp"
-#include "lstiterTest.hpp"
+#include "lstmapTest.hpp"
 
-#if defined(FT_LSTITER_EXIST) && defined(TYPE_LST_EXIST)
+#if defined(FT_LSTMAP_EXIST) && defined(TYPE_LST_EXIST)
 static int count = 0;
+static int countUntilFail = -1;
 
-static void lstiter_f(t_list *elem)
+static t_list *lstmap_f(t_list *elem)
 {
-	((char*)(elem->content))[0] = '0' + count;
-	++count;
+	(void)elem;
+	if (count != countUntilFail)
+	{
+		t_list *newLst = new t_list;
+		newLst->content = (void*)(new char[5]());
+		newLst->content_size = 5;
+		newLst->next = nullptr;
+		((char*)(newLst->content))[0] = '0' + count;
+		++count;
+		return newLst;
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 #endif
 
-lstiterTest::lstiterTest()
+lstmapTest::lstmapTest()
 {
-#if defined(FT_LSTITER_EXIST) && defined(TYPE_LST_EXIST)
+#if defined(FT_LSTMAP_EXIST) && defined(TYPE_LST_EXIST)
 	funToTestExist = true;
 #else
 	funToTestExist = false;
 #endif
 }
 
-int lstiterTest::launchTest()
+int lstmapTest::launchTest()
 {
-	lstiterTest test;
+	lstmapTest test;
 
-	test.startTest("ft_lstiter(t_list *lst, void (*f)(t_list *elem))");
+	test.startTest("ft_lstmap((t_list *lst, t_list *(*f)(t_list *elem))");
 
 	return test.errCount;
 }
 
-void lstiterTest::processTest()
+void lstmapTest::processTest()
 {
-#if defined(FT_LSTITER_EXIST) && defined(TYPE_LST_EXIST)
-	char funProt[] = "void (*f)(t_list *elem)";
+#if defined(FT_LSTMAP_EXIST) && defined(TYPE_LST_EXIST)
+	char funProt[] = "t_list *(*f)(t_list *elem)";
 	spLstVal baseLst = mkSpLstVal(nullptr, "lst", true);
 	spLstVal testLst = mkSpLstVal(nullptr, "lst", true);
-	std::function<spVoidVal(spLstVal, spCstStrVal)> baseFunction =
-		[&](spLstVal lst, spCstStrVal f)
+	spLstVal baseRet = mkSpLstVal(nullptr, "", true);
+	spLstVal testRet = mkSpLstVal(nullptr, "", true);
+	std::function<spLstVal(spLstVal, spCstStrVal, spBaseVal<int>)> baseFunction =
+		[&](spLstVal def_lst, spCstStrVal f, spBaseVal<int> fail_at)
 		{
 			count = 0;
-			(void)lst;
+			(void)def_lst;
+			(void)fail_at;
 			if (f->getVal() != nullptr)
 			{
-				t_list *tmpLst = baseLst->getVal();
-				while (tmpLst != nullptr)
+				t_list *lst = baseLst->getVal();
+				t_list *newLst = nullptr;
+				t_list *curElem = nullptr;
+				while (lst != nullptr)
 				{
-					lstiter_f(tmpLst);
-					tmpLst = tmpLst->next;
+					if (newLst == nullptr)
+					{
+						newLst = lstmap_f(lst);
+						curElem = newLst;
+					}
+					else
+					{
+						curElem->next = lstmap_f(lst);
+						curElem = curElem->next;
+					}
+					if (curElem == nullptr)
+					{
+						baseRet->setVal(nullptr);
+						return baseRet;
+					}
+					lst = lst->next;
 				}
+				baseRet->setVal(newLst);
+				return baseRet;
 			}
-			return mkSpVoidVal();
+			else
+			{
+				baseRet->setVal(nullptr);
+				return baseRet;
+			}
 		};
-	std::function<spVoidVal(spLstVal, spCstStrVal)> testFunction =
-		[&](spLstVal lst, spCstStrVal f)
+	std::function<spLstVal(spLstVal, spCstStrVal, spBaseVal<int>)> testFunction =
+		[&](spLstVal def_lst, spCstStrVal f, spBaseVal<int> fail_at)
 		{
 			count = 0;
-			(void)lst;
-			ft_lstiter(testLst->getVal(), (f->getVal() == nullptr ? nullptr : lstiter_f));
-			return mkSpVoidVal();
+			(void)def_lst;
+			(void)fail_at;
+			testRet->setVal(ft_lstmap(testLst->getVal(), (f->getVal() == nullptr ? nullptr : lstmap_f)));
+			return testRet;
 		};
 	auto testValsFun =
-		[&](bool printRes) {return compareVals(printRes, std::pair<spLstVal, spLstVal>(baseLst, testLst));};
+		[&](bool printRes) {return compareVals(printRes, std::pair<spLstVal, spLstVal>(baseLst, testLst), std::pair<spBaseVal<bool>, spBaseVal<bool>>(
+					mkSpBaseVal<bool>(baseRet->getVal() == nullptr || baseRet->getVal() != baseLst->getVal(), "ret != lst"),
+					mkSpBaseVal<bool>(testRet->getVal() == nullptr || testRet->getVal() != testLst->getVal(), "ret != lst")));};
 
+	for (countUntilFail = -1; countUntilFail <= 0; ++countUntilFail)
 	{
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(nullptr, "f"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(nullptr, "f"), mkSpBaseVal<int>(countUntilFail, "fail_at"));
 	}
+	for (countUntilFail = -1; countUntilFail <= 0; ++countUntilFail)
 	{
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(funProt, "f"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(funProt, "f"), mkSpBaseVal<int>(countUntilFail, "fail_at"));
 	}
-	{
-		t_list *newBaseLst = new t_list;
-		newBaseLst->content = (void*)(new char[10]());
-		newBaseLst->content_size = 10;
-		newBaseLst->next = nullptr;
-		baseLst->setVal(newBaseLst);
-
-		t_list *newTestLst = new t_list;
-		newTestLst->content = (void*)(new char[10]());
-		newTestLst->content_size = 10;
-		newTestLst->next = nullptr;
-		testLst->setVal(newTestLst);
-
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(nullptr, "f"));
-	}
+	for (countUntilFail = -1; countUntilFail <= 1; ++countUntilFail)
 	{
 		t_list *newBaseLst = new t_list;
 		newBaseLst->content = (void*)(new char[10]());
@@ -101,8 +131,25 @@ void lstiterTest::processTest()
 		newTestLst->next = nullptr;
 		testLst->setVal(newTestLst);
 
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(funProt, "f"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(nullptr, "f"), mkSpBaseVal<int>(countUntilFail, "fail_at"));
 	}
+	for (countUntilFail = -1; countUntilFail <= 1; ++countUntilFail)
+	{
+		t_list *newBaseLst = new t_list;
+		newBaseLst->content = (void*)(new char[10]());
+		newBaseLst->content_size = 10;
+		newBaseLst->next = nullptr;
+		baseLst->setVal(newBaseLst);
+
+		t_list *newTestLst = new t_list;
+		newTestLst->content = (void*)(new char[10]());
+		newTestLst->content_size = 10;
+		newTestLst->next = nullptr;
+		testLst->setVal(newTestLst);
+
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(funProt, "f"), mkSpBaseVal<int>(countUntilFail, "fail_at"));
+	}
+	for (countUntilFail = -1; countUntilFail <= 2; ++countUntilFail)
 	{
 		t_list *newBaseLst = new t_list;
 		newBaseLst->content = (void*)(new char[10]());
@@ -124,8 +171,9 @@ void lstiterTest::processTest()
 		newTestLst2->next = newTestLst;
 		testLst->setVal(newTestLst2);
 
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(nullptr, "f"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(nullptr, "f"), mkSpBaseVal<int>(countUntilFail, "fail_at"));
 	}
+	for (countUntilFail = -1; countUntilFail <= 2; ++countUntilFail)
 	{
 		t_list *newBaseLst = new t_list;
 		newBaseLst->content = (void*)(new char[10]());
@@ -147,8 +195,9 @@ void lstiterTest::processTest()
 		newTestLst2->next = newTestLst;
 		testLst->setVal(newTestLst2);
 
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(funProt, "f"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(funProt, "f"), mkSpBaseVal<int>(countUntilFail, "fail_at"));
 	}
+	for (countUntilFail = -1; countUntilFail <= 3; ++countUntilFail)
 	{
 		t_list *newBaseLst = new t_list;
 		newBaseLst->content = (void*)(new char[10]());
@@ -178,8 +227,9 @@ void lstiterTest::processTest()
 		newTestLst3->next = newTestLst2;
 		testLst->setVal(newTestLst3);
 
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(nullptr, "f"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(nullptr, "f"), mkSpBaseVal<int>(countUntilFail, "fail_at"));
 	}
+	for (countUntilFail = -1; countUntilFail <= 3; ++countUntilFail)
 	{
 		t_list *newBaseLst = new t_list;
 		newBaseLst->content = (void*)(new char[10]());
@@ -209,7 +259,7 @@ void lstiterTest::processTest()
 		newTestLst3->next = newTestLst2;
 		testLst->setVal(newTestLst3);
 
-		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(funProt, "f"));
+		testThisFunAndVals(baseFunction, testFunction, testValsFun, baseLst, mkSpCstStrVal(funProt, "f"), mkSpBaseVal<int>(countUntilFail, "fail_at"));
 	}
 #endif
 }
