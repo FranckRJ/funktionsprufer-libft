@@ -123,16 +123,13 @@ void absTest::testThisFunAndVals(std::function<Tret(Tpar...)> baseFun,
 
 	if ((!showOnlyErrors && isVerbose) || (showOnlyErrors && isVerbose && !funAndValsSuccess))
 	{
-		if (!baseRet->getIsVoidVal() && !testRet->getIsVoidVal())
+		std::cout << "Retour fonction base : \"" << baseRet->valToStringOrCrash() << "\"" << std::endl;
+		std::cout << "Retour fonction test : \"" << testRet->valToStringOrCrash() << "\"";
+		if (!funSuccess)
 		{
-			std::cout << "Retour fonction base : \"" << baseRet->valToStringOrCrash() << "\"" << std::endl;
-			std::cout << "Retour fonction test : \"" << testRet->valToStringOrCrash() << "\"";
-			if (!funSuccess)
-			{
-				std::cout << colors::bold() + colors::red() << " <----- ERREUR !!!" << colors::reset();
-			}
-			std::cout << std::endl;
+			std::cout << colors::bold() + colors::red() << " <----- ERREUR !!!" << colors::reset();
 		}
+		std::cout << std::endl;
 
 		valsToTest(true);
 

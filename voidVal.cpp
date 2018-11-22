@@ -12,5 +12,5 @@ voidVal::voidVal() : absVal<void *>(nullptr, "")
 
 std::string voidVal::valToString()
 {
-	return "";
+	return "VOID";
 }
