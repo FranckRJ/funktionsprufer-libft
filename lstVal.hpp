@@ -26,6 +26,7 @@ public:
 	~lstVal();
 	bool equalsSameType(spAbsVal<t_list*> cmpVal);
 	void setVal(t_list *newVal);
+	void setValWithoutFree(t_list *newVal);
 	std::string valToString();
 private:
 	bool lstElemEqualAnother(t_list *e1, t_list *e2);

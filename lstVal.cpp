@@ -48,6 +48,11 @@ void lstVal::setVal(t_list *newVal)
 	absVal::setVal(newVal);
 }
 
+void lstVal::setValWithoutFree(t_list *newVal)
+{
+	absVal::setVal(newVal);
+}
+
 std::string lstVal::valToString()
 {
 	if (getIsVoidVal())

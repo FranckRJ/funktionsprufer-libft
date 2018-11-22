@@ -144,7 +144,7 @@ template <class Tfstval, class... Tothval>
 bool absTest::compareVals(bool printRes, Tfstval fstVal, Tothval... othVals)
 {
 	bool fstSuccess = compareVals(printRes, fstVal);
-	return fstSuccess && compareVals(printRes, othVals...);
+	return compareVals(printRes, othVals...) && fstSuccess;
 }
 
 template <class Tfstval>
