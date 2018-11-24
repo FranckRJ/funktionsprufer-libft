@@ -47,10 +47,10 @@ std::string addrVal::valToString()
 {
 	if (getVal() == nullptr)
 	{
-		return "NULL";
+		return "addrdif : NULL";
 	}
 	else
 	{
-		return std::to_string((char*)getVal() - (char*)baseVal);
+		return "addrdif : " + std::to_string((char*)getVal() - (char*)baseVal);
 	}
 }
