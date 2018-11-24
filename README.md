@@ -1,5 +1,7 @@
 Ein ekelhafter Code, eine wackelige Schnittstelle, aber mehr oder weniger strenge Tests.
 
+--help für Hilfe.
+
 Für den Teig die Hefe mit etwas Wasser verrühren. zehn min. stehen lassen.
 Das Mehl in eine Schüssel sieben, die Hefe-Mischung, das übrige Wasser, das Öl und etwas Salz zugeben, alles zu einem glatten Teig verkneten und zugedeckt dreißig min. an einem warmen Ort gehen lassen.
 
