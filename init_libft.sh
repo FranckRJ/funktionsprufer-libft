@@ -48,6 +48,8 @@ function del_cpp_keyword_libfth
 	sed -i "" "s/*delete,/*deleteVar,/g" libft.h
 	sed -i "" "s/ delete)/ deleteVar)/g" libft.h
 	sed -i "" "s/*delete)/*deleteVar)/g" libft.h
+	sed -i "" "s/false/False/g" libft.h
+	sed -i "" "s/true/True/g" libft.h
 }
 
 function make_define_header
@@ -62,7 +64,7 @@ read -r -d '' END_DEF << EOM
 EOM
 
 echo "$START_DEF" > funExistDefines.hpp
-echo "$(cat libft.h | sed -n "s/.*\(ft_[^\\(]*\).*/#define \1_EXIST/p" | awk '{print toupper($0)}' | sed "s/#DEFINE/#define/g")" >> funExistDefines.hpp
+echo "$(cat libft.h | sed -n "s/.*\(ft_[^\\(]*\)[\\(].*/#define \1_EXIST/p" | awk '{print toupper($0)}' | sed "s/#DEFINE/#define/g")" >> funExistDefines.hpp
 if [[ $(cat libft.h) == *"t_list"* ]]; then
 	echo "#define TYPE_LST_EXIST" >> funExistDefines.hpp
 fi
