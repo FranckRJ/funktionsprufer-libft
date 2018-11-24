@@ -178,7 +178,7 @@ int main(int argc, char **argv)
 			{
 				colors::showColors = false;
 			}
-			else if (curArg == "--help")
+			else//if (curArg == "--help")
 			{
 				std::cout << HELP_INFOS << std::endl;
 				return 0;
