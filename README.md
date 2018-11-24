@@ -1,5 +1,6 @@
 Ein ekelhafter Code, eine wackelige Schnittstelle, aber mehr oder weniger strenge Tests.
 
+./init\_libft.sh &lt;pfad\_zur\_bibliothek&gt; um die Tests zu initialisieren.  
 --help für Hilfe.
 
 Für den Teig die Hefe mit etwas Wasser verrühren. zehn min. stehen lassen.
