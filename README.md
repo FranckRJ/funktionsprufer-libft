@@ -1,7 +1,10 @@
 Ein ekelhafter Code, eine wackelige Schnittstelle, aber mehr oder weniger strenge Tests.
 
-`./init_libft.sh <pfad_zur_bibliothek>` um die Tests zu initialisieren.  
-`--help` für Hilfe.
+Votre dossier libft doit etre totalement distinct du dossier funktionsprufer-libft, l'un ne doit pas etre le parent de l'autre.  
+Votre libft doit deja etre compilee.
+Executez `./init_libft.sh <chemin_vers_libft>` pour initialiser les tests.  
+Executez `./test-libft` pour lancer les tests.  
+`--help` avec l'une ou l'autre des commandes pour l'aide la concernant.
 
 Für den Teig die Hefe mit etwas Wasser verrühren. zehn min. stehen lassen.
 Das Mehl in eine Schüssel sieben, die Hefe-Mischung, das übrige Wasser, das Öl und etwas Salz zugeben, alles zu einem glatten Teig verkneten und zugedeckt dreißig min. an einem warmen Ort gehen lassen.
