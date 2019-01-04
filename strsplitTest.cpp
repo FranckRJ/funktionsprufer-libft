@@ -88,5 +88,8 @@ void strsplitTest::processTest()
 	testThisFun(baseFunction, testFunction, mkSpCstStrVal(",,,,salut,,,ok,,,"), mkSpBaseVal<char>(','));
 	testThisFun(baseFunction, testFunction, mkSpCstStrVal(","), mkSpBaseVal<char>(','));
 	testThisFun(baseFunction, testFunction, mkSpCstStrVal(",,,,"), mkSpBaseVal<char>(','));
+	testThisFun(baseFunction, testFunction, mkSpCstStrVal("salut"), mkSpBaseVal<char>('\0'));
+	testThisFun(baseFunction, testFunction, mkSpCstStrVal("salut\0bonjour"), mkSpBaseVal<char>('\0'));
+	testThisFun(baseFunction, testFunction, mkSpCstStrVal(""), mkSpBaseVal<char>('\0'));
 #endif
 }
