@@ -1,3 +1,5 @@
+#!/bin/bash
+
 getLibftFiles="true"
 genDefineHeader="true"
 makeTests="true"
@@ -56,11 +58,13 @@ function make_define_header
 {
 read -r -d '' START_DEF << EOM
 #ifndef FUNEXISTDEFINES_HPP
-#define FUNEXISTDEFINES_HPP\n
+#define FUNEXISTDEFINES_HPP
+
 EOM
 
 read -r -d '' END_DEF << EOM
-\n#endif
+
+#endif
 EOM
 
 echo "$START_DEF" > funExistDefines.hpp
