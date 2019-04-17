@@ -1,5 +1,3 @@
-Ein ekelhafter Code, eine wackelige Schnittstelle, aber mehr oder weniger strenge Tests.
-
 Votre dossier libft doit etre totalement distinct du dossier funktionsprufer-libft, l'un ne doit pas etre le parent de l'autre.  
 Votre libft doit deja etre compilee.  
 Executez `./init_libft.sh <chemin_vers_libft>` pour initialiser les tests.  
